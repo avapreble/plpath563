@@ -34,3 +34,7 @@ I input the following parameters in to the Sequence Search Interface:
 - Geographic region: *North America/Africa/Asia*
 
 I then selected 5 random BLAST sequences from each of my 3 chosen countries - United States, Monzambique, and Thailand
+### Accession numbers
+- US: MK169417, MK169418, MK169422, MK169441, MK169431
+- Mozambique: OK649226, OK649268, OK649270, OK649287, OK649295
+- Thailand: ON903098, ON903078, ON863057, ON863022, ON863108
