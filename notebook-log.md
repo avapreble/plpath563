@@ -24,3 +24,13 @@ I will maintain detailed notes throughout the process to ensure my work is repro
 3) analyze alignments (MAFFT, MUSCLE?) and compare variation between each region's data
 4) build tree and make inferences about how treatment resistance is most commonly spread in HIV-1 
 
+## Downloading data
+I downloaded my data from the Los Alamos National Laboratory HIV sequence database (https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html).
+I input the following parameters in to the Sequence Search Interface:
+- Sampling year: 2018
+- Virus: HIV-1
+- Subtype: any subtype
+- Genomic region: Pol CDS
+- Geographic region: *North America/Africa/Asia*
+
+I then selected 5 random BLAST sequences from each of my 3 chosen countries - United States, Monzambique, and Thailand
