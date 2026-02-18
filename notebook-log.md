@@ -4,9 +4,9 @@
 
 Regions with different first-line HIV treatments, and variations in the emergence of drug resistance
 
-Has treatment resistance emerged multiple times independently in response to similar selective pressures, or does it exist more so as a result of transmission across regions?
+Do prominent regional HIV-1 subtypes exhibit convergent evolution of drug resistance mutations in the pol gene despite variations in first-line antiretrovirals?
 
-I will use publicly available data of HIV-1 pol sequences from 3 regions - North America, Southern Africa, and Asia - and compare phylogenies. I selected these regions because they each have a different first-line antiretroviral therapy methods.  
+I will use publicly available data of HIV-1 pol sequences from 3 regions - North America, Southern Africa, and Asia - and compare phylogenies. I selected these regions to ensure diverse data and because of their variation in use of antiretroviral treatments. 
 
 
 ## Quality Control
