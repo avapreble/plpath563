@@ -1,8 +1,7 @@
-# plpath563
-Ava Preble
+# plpath563 - Ava Preble
 
-# Phylogeny of HIV-1 pol sequences from regions with distinct first-line antiretroviral therapies
+# Phylogeny of HIV-1 pol sequences from regions with distinct first-line antiretroviral therapies to assess patterns in the emergence of drug resistance mutations.
 
-Has treatment resistance emerged multiple times independently in response to similar selective pressures, or does it exist more so as a result of transmission across regions?
+Do prominent regional HIV-1 subtypes exhibit convergent evolution of drug resistance mutations in the pol gene despite variations in first-line antiretrovirals?
 
-I will use publicly available data from the year 2018 of HIV-1 pol sequences from 3 countries with different first-line antiretroviral treatments for HIV - the United States, Mozambique, and Thailand.
+I will use publicly available data of HIV-1 pol sequences from 3 regions - North America, Southern Africa, and Asia - and compare phylogenies. I selected these regions to ensure diverse data and because of their variation in use of antiretroviral treatments.
