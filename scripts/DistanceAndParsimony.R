@@ -53,8 +53,11 @@ parsimony(starting_tree, dna2)
 parsimony_tree <- optim.parsimony(starting_tree, dna2)
 # console: final p-score 1037 after 0 nni operations(??)
 
+# root the tree:
+rtre = root(parsimony_tree, node = 19)
+
 # tree plot
-plot(parsimony_tree, cex=0.6)
+plot(rtre, cex=0.6)
 title("Parsimony tree")
 
 
