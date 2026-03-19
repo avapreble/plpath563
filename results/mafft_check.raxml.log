@@ -1,0 +1,48 @@
+
+RAxML-NG v. 1.2.2 released on 30.04.2024 by The Exelixis Lab.
+Developed by: Alexey M. Kozlov and Alexandros Stamatakis.
+Contributors: Diego Darriba, Tomas Flouri, Benoit Morel, Sarah Lutteropp, Ben Bettisworth, Julia Haag, Anastasis Togkousidis.
+Latest version: https://github.com/amkozlov/raxml-ng
+Questions/problems/suggestions? Please visit: https://groups.google.com/forum/#!forum/raxml
+
+System: Apple M2, 8 cores, 16 GB RAM
+
+RAxML-NG was called at 12-Mar-2026 12:44:33 as follows:
+
+raxml-ng --check --msa data/alignment_results/MAFFT_aligned.fasta --model GTR+G --prefix results/mafft_check
+
+Analysis options:
+  run mode: Alignment validation
+  start tree(s): 
+  random seed: 1773337473
+  SIMD kernels: SSE3
+  parallelization: coarse-grained (auto), PTHREADS (auto)
+
+[00:00:00] Reading alignment from file: data/alignment_results/MAFFT_aligned.fasta
+[00:00:00] Loaded alignment with 15 taxa and 3094 sites
+
+WARNING: Sequences C.MZ.2018.S04.OK649268 and C.MZ.2018.S06.OK649270 are exactly identical!
+WARNING: Duplicate sequences found: 1
+
+NOTE: Reduced alignment (with duplicates and gap-only sites/taxa removed) 
+NOTE: was saved to: /Users/avapreble/plpath563/results/mafft_check.raxml.reduced.phy
+
+Alignment comprises 1 partitions and 3094 sites
+
+Partition 0: noname
+Model: GTR+FO+G4m
+Alignment sites: 3094
+Gaps: 2.64 %
+Invariant sites: 76.31 %
+
+
+
+Alignment can be successfully read by RAxML-NG.
+
+
+Execution log saved to: /Users/avapreble/plpath563/results/mafft_check.raxml.log
+
+Analysis started: 12-Mar-2026 12:44:33 / finished: 12-Mar-2026 12:44:33
+
+Elapsed time: 0.014 seconds
+

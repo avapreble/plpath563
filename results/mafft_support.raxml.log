@@ -1,0 +1,34 @@
+
+RAxML-NG v. 1.2.2 released on 30.04.2024 by The Exelixis Lab.
+Developed by: Alexey M. Kozlov and Alexandros Stamatakis.
+Contributors: Diego Darriba, Tomas Flouri, Benoit Morel, Sarah Lutteropp, Ben Bettisworth, Julia Haag, Anastasis Togkousidis.
+Latest version: https://github.com/amkozlov/raxml-ng
+Questions/problems/suggestions? Please visit: https://groups.google.com/forum/#!forum/raxml
+
+System: Apple M2, 8 cores, 16 GB RAM
+
+RAxML-NG was called at 12-Mar-2026 13:26:01 as follows:
+
+raxml-ng --support --tree results/mafft_ml.raxml.bestTree --bs-trees results/mafft_boot.raxml.bootstraps --prefix results/mafft_support
+
+Analysis options:
+  run mode: Compute bipartition support (Felsenstein Bootstrap)
+  start tree(s): user
+  random seed: 1773339961
+  SIMD kernels: SSE3
+  parallelization: coarse-grained (auto), PTHREADS (auto)
+
+Reading reference tree from file: results/mafft_ml.raxml.bestTree
+Reference tree size: 14
+
+Reading bootstrap trees from file: results/mafft_boot.raxml.bootstraps
+Loaded 1000 trees with 14 taxa.
+
+Best ML tree with Felsenstein bootstrap (FBP) support values saved to: /Users/avapreble/plpath563/results/mafft_support.raxml.support
+
+Execution log saved to: /Users/avapreble/plpath563/results/mafft_support.raxml.log
+
+Analysis started: 12-Mar-2026 13:26:01 / finished: 12-Mar-2026 13:26:01
+
+Elapsed time: 0.038 seconds
+

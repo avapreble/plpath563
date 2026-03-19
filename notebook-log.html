@@ -509,11 +509,124 @@ more simple and computer intensive than some of it’s counterparts.</p>
 <p><code>{r} parsimony_tree &lt;- optim.parsimony(starting_tree, dna2)</code></p>
 <ul>
 <li><p>console: final p-score 1037 after 0 nni operations(??)</p></li>
+<li><p>root the tree:
+<code>{r} rtre = root(parsimony_tree, node = 19)</code></p></li>
 <li><p>tree plot</p></li>
 </ul>
 <p><code>{r} plot(parsimony_tree, cex=0.6) title(&quot;Parsimony tree&quot;)</code></p>
 </div>
+<div id="maximum-likelihood-trees-and-inference" class="section level3">
+<h3>Maximum Likelihood trees and inference</h3>
 </div>
+</div>
+<div id="raxml-ng-v1.2.2" class="section level2">
+<h2>RAxML-NG v1.2.2</h2>
+<ul>
+<li>input alignment</li>
+</ul>
+<p>data/alignment_results/MAFFT_aligned.fasta</p>
+<ul>
+<li>verify format command:</li>
+</ul>
+<p>raxml-ng –check –msa data/alignment_results/MAFFT_aligned.fasta
+–model GTR+G –prefix results/mafft_check</p>
+</div>
+</div>
+<div id="raxml-detected-two-identical-sequences-so-it-reduced-the-alignment-for-computational-purposes-c.mz.2018.s04.ok649268-and-c.mz.2018.s06.ok649270" class="section level1">
+<h1>RAxML detected two identical sequences, so it reduced the alignment
+for computational purposes (C.MZ.2018.S04.OK649268 and
+C.MZ.2018.S06.OK649270)</h1>
+<p>Alignment has 3094 sites and 15 taxa</p>
+</div>
+<div id="reduced-alignment-for-analysis" class="section level1">
+<h1>reduced alignment for analysis</h1>
+<p>results/mafft_check.raxml.reduced.phy</p>
+</div>
+<div id="build-raxml-ml-tree-command" class="section level1">
+<h1>build RAxML ML tree command</h1>
+<p>raxml-ng –search –msa results/mafft_check.raxml.reduced.phy –model
+GTR+G –prefix results/mafft_ml</p>
+<p><em>tree saves as results/mafft_ml.raxml.bestTree</em></p>
+</div>
+<div id="output" class="section level1">
+<h1>output:</h1>
+<ul>
+<li><p>logLikelihood: -9274.482730</p></li>
+<li><p>14 taxa due to duplicate removed for computation</p></li>
+</ul>
+</div>
+<div id="bootstrap-trees-command" class="section level1">
+<h1>bootstrap trees command</h1>
+<p>raxml-ng –bootstrap –msa results/mafft_check.raxml.reduced.phy –model
+GTR+G –prefix results/mafft_boot</p>
+<ul>
+<li>bootstrap replicate tree output:</li>
+</ul>
+<p>results/mafft_boot.raxml.bootstraps</p>
+<ul>
+<li>map bootstrap to best ML tree command</li>
+</ul>
+<p>raxml-ng –support –tree results/mafft_ml.raxml.bestTree –bs-trees
+results/mafft_boot.raxml.bootstraps –prefix results/mafft_support</p>
+<ul>
+<li>tree: results/mafft_support.raxml.support</li>
+</ul>
+<p>commands: #loading packages <code>{r} library(ape)</code></p>
+</div>
+<div id="loading-raxml-tree" class="section level1">
+<h1>loading RAxML tree</h1>
+<p><code>{r} tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></p>
+<p>#plot tree <code>{r} plot(tree)</code></p>
+<div id="maximum-likelihood-iq-tree-v3.0.1" class="section level3">
+<h3>Maximum likelihood IQ-TREE v3.0.1</h3>
+</div>
+</div>
+<div id="description" class="section level1">
+<h1>Description:</h1>
+<p>IQ-TREE is an software used for phylogenetic inference by maximum
+likelihood.The software package includes model selection through
+ModelFinder, an effective search algorithm, and fast bootstrapping.</p>
+</div>
+<div id="assumptions-httpsiqtree.github.iodocassessing-phylogenetic-assumptions" class="section level1">
+<h1>Assumptions (<a href="https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions" class="uri">https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions</a>):</h1>
+<ul>
+<li>treelikeness: all sites in aligned data were yielded from the same
+tree</li>
+<li>stationarity: constant frequency of nucleotides and amino acids
+through time</li>
+<li>reversibility: substitutions equally likely in both directions</li>
+<li>homogeneity: constant substitution rate through time</li>
+</ul>
+</div>
+<div id="limitations" class="section level1">
+<h1>Limitations:</h1>
+<ul>
+<li>quality of alignment determines results</li>
+<li>extensive bootstrapping still presents uncertainty</li>
+<li>weak phylogenetic signals within a dataset may require parameter
+adjustment</li>
+</ul>
+</div>
+<div id="input-alignment" class="section level1">
+<h1>input alignment:</h1>
+<p>data/alignment_results/MAFFT_aligned.fasta</p>
+</div>
+<div id="command-input" class="section level1">
+<h1>command input</h1>
+<p>~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s
+data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000</p>
+</div>
+<div id="output-mafft_aligned.fasta.log" class="section level1">
+<h1>output (MAFFT_aligned.fasta.log)</h1>
+<ul>
+<li><p>15 sequences, 3094 sites</p></li>
+<li><p>1 pair of identical seq (NOTE: C.MZ.2018.S06.OK649270 is
+identical to C.MZ.2018.S04.OK649268 but kept for subsequent analysis
+Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73%
+CPU)</p></li>
+<li><p>best-fit model (Bayesian Information Criterion):
+TIM3+F+I</p></li>
+</ul>
 </div>
 
 

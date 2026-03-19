@@ -98,6 +98,7 @@ mafft combined_HIV2018.fasta > MAFFT_aligned.fasta   # code ran for running MAFF
     *alignment_results*
     
     
+    
 ## Building simpler trees to start
 
 loaded packages:
@@ -183,10 +184,121 @@ parsimony_tree <- optim.parsimony(starting_tree, dna2)
 
 - console: final p-score 1037 after 0 nni operations(??)
 
-
+- root the tree:
+```{r}
+rtre = root(parsimony_tree, node = 19)
+```
 - tree plot
 
 ```{r}
 plot(parsimony_tree, cex=0.6)
 title("Parsimony tree")
 ```
+
+
+
+### Maximum Likelihood trees and inference
+
+
+
+## RAxML-NG v1.2.2
+
+- input alignment
+
+data/alignment_results/MAFFT_aligned.fasta
+
+
+- verify format command:
+
+raxml-ng --check --msa data/alignment_results/MAFFT_aligned.fasta --model GTR+G --prefix results/mafft_check
+
+# RAxML detected two identical sequences, so it reduced the alignment for computational purposes (C.MZ.2018.S04.OK649268 and C.MZ.2018.S06.OK649270)
+Alignment has 3094 sites and 15 taxa
+
+
+# reduced alignment for analysis
+
+results/mafft_check.raxml.reduced.phy
+
+
+# build RAxML ML tree command
+
+raxml-ng --search --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_ml
+
+*tree saves as results/mafft_ml.raxml.bestTree*
+
+# output: 
+
+- logLikelihood: -9274.482730
+
+- 14 taxa due to duplicate removed for computation
+
+
+# bootstrap trees command
+
+raxml-ng --bootstrap --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_boot
+
+- bootstrap replicate tree output:
+
+results/mafft_boot.raxml.bootstraps
+
+
+- map bootstrap to best ML tree command
+
+raxml-ng --support --tree results/mafft_ml.raxml.bestTree --bs-trees results/mafft_boot.raxml.bootstraps --prefix results/mafft_support
+
+- tree:
+results/mafft_support.raxml.support
+
+
+commands: 
+#loading packages
+```{r}
+library(ape)
+```
+
+# loading RAxML tree
+```{r}
+tree <- read.tree("results/mafft_support.raxml.support")
+```
+
+#plot tree
+```{r}
+plot(tree)
+```
+
+
+
+### Maximum likelihood IQ-TREE v3.0.1
+
+# Description:
+IQ-TREE is an software used for phylogenetic inference by maximum likelihood.The software package includes model selection through ModelFinder, an effective search algorithm, and fast bootstrapping. 
+
+# Assumptions (https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions): 
+- treelikeness: all sites in aligned data were yielded from the same tree
+- stationarity: constant frequency of nucleotides and amino acids through time
+- reversibility: substitutions equally likely in both directions
+- homogeneity: constant substitution rate through time
+
+# Limitations: 
+- quality of alignment determines results
+- extensive bootstrapping still presents uncertainty
+- weak phylogenetic signals within a dataset may require parameter adjustment 
+
+
+# input alignment:
+data/alignment_results/MAFFT_aligned.fasta
+
+# command input
+~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000
+
+# output (MAFFT_aligned.fasta.log)
+
+- 15 sequences, 3094 sites
+
+- 1 pair of identical seq (NOTE: C.MZ.2018.S06.OK649270 is identical to C.MZ.2018.S04.OK649268 but kept for subsequent analysis
+Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
+
+- best-fit model (Bayesian Information Criterion): TIM3+F+I
+
+
