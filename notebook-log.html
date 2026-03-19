@@ -353,45 +353,42 @@ display: none;
 
 
 <div id="reproducible-notebook-log" class="section level1">
-<h1>Reproducible Notebook Log</h1>
+<h1><strong>Reproducible Notebook Log</strong></h1>
 <div id="question-and-data" class="section level2">
-<h2>Question and Data</h2>
+<h2><strong>Question and Data</strong></h2>
 <p>Regions with different first-line HIV treatments, and variations in
 the emergence of drug resistance</p>
 <p>Do prominent regional HIV-1 subtypes exhibit convergent evolution of
 drug resistance mutations in the pol gene despite variations in
 first-line antiretrovirals?</p>
 <p>I will use publicly available data of HIV-1 pol sequences from 3
-regions - North America, Southern Africa, and Asia - and compare
+countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
 of their variation in use of antiretroviral treatments.</p>
 </div>
 <div id="quality-control" class="section level2">
-<h2>Quality Control</h2>
-<p>I plan to use methods taught in class to assemble and align my data
-with as much accuracy as possible.</p>
-<ul>
-<li>update (2/16/2026): going to run MAFFT on combined file of all HIV-1
-sequences (5 random BLAST from each of the 3 chosen countries,
-combined_HIV2018)</li>
-</ul>
+<h2><strong>Quality Control</strong></h2>
+<p>Using methods taught in class, I assembled and aligned my data with
+as much accuracy as possible. I ran MAFFT on my combined file
+(combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results
+from each of the 3 different countries).</p>
 <p>I will maintain detailed notes throughout the process to ensure my
 work is reproducible, as well as to document steps taken in QC.</p>
 </div>
 <div id="plan" class="section level2">
-<h2>Plan</h2>
+<h2><strong>Plan</strong></h2>
 <ol style="list-style-type: decimal">
 <li>download necessary/appropriate data from public database (.fasta
 files)</li>
 <li>clean datasets/quality control</li>
-<li>analyze alignments (MAFFT, MUSCLE?) and compare variation between
-each region’s data</li>
+<li>analyze alignments and compare variation between each region’s
+data</li>
 <li>build tree and make inferences about how treatment resistance is
 most commonly spread in HIV-1</li>
 </ol>
 </div>
 <div id="downloading-data" class="section level2">
-<h2>Downloading data</h2>
+<h2><strong>Downloading data</strong></h2>
 <p>I downloaded my data from the Los Alamos National Laboratory HIV
 sequence database (<a href="https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html" class="uri">https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html</a>).
 I input the following parameters in to the Sequence Search
@@ -408,7 +405,7 @@ countries - United States, Mozambique, and Thailand - of the most
 prominent subtype in each region.</p>
 <p><strong>Accession numbers</strong></p>
 <ul>
-<li><p><strong>US (subtypeB):</strong> MK169417, MK169418, MK169422,
+<li><p><strong>US (subtype B):</strong> MK169417, MK169418, MK169422,
 MK169441, MK169431</p></li>
 <li><p><strong>Mozambique (subtype C):</strong> OK649266, OK649268,
 OK649270, OK649287, OK649295</p></li>
@@ -416,37 +413,46 @@ OK649270, OK649287, OK649295</p></li>
 ON863057, ON863022, ON863108</p></li>
 </ul>
 </div>
-<div id="aligning-data-one-method-for-now-hw-assignment" class="section level2">
-<h2>Aligning Data (one method for now, HW assignment)</h2>
-<p>I chose to use MAFFT as my MSA method for this assignment</p>
+<div id="aligning-data-msa" class="section level2">
+<h2><strong>Aligning Data MSA</strong></h2>
+<div id="mafft-hw-assignment" class="section level4">
+<h4>(MAFFT, HW assignment)</h4>
+</div>
+<div id="description" class="section level3">
+<h3>Description:</h3>
 <p><em>MAFFT is a multiple sequence alignment program that works
 functions via 2 main techniques - (1) identification of homologous
 regions with Fast Fourier transform, (2) an efficient, quicker scoring
 system.</em></p>
-<p><em>Assumptions</em> - The chosen sequence regions are homologous and
-closely related - Needleman-Wunsch algorithm for computing alignment
-without rearrangement</p>
-<p><em>Limitations</em> - CPU times proportional to sequence length for
-more conserved regions, but closer to Needleman-Wunsch for more
-distantly related sequences - More reliable guide trees produce more
-reliable results, an inaccurate guide tree can mess with alignment -
-Fast Fourier Transform algorithm not efficient for more distantly
+<p><strong>Assumptions</strong> - The chosen sequence regions are
+homologous and closely related - Needleman-Wunsch algorithm for
+computing alignment without rearrangement</p>
+<p><strong>Limitations</strong> - CPU times proportional to sequence
+length for more conserved regions, but closer to Needleman-Wunsch for
+more distantly related sequences - More reliable guide trees produce
+more reliable results, an inaccurate guide tree can mess with alignment
+- Fast Fourier Transform algorithm not efficient for more distantly
 related sequences</p>
 <ul>
 <li>I made a combined file of all the downloaded sequences called
 <em>combined_HIV2018</em></li>
 </ul>
-<p><code>{r} mafft combined_HIV2018.fasta &gt; MAFFT_aligned.fasta   # code ran for running MAFFT (already installed) inside data folder of project</code></p>
+<pre><code>mafft combined_HIV2018.fasta &gt; MAFFT_aligned.fasta   # code ran for running MAFFT (already installed) inside data folder of project</code></pre>
 <ul>
 <li>This made the file <em>MAFFT_aligned.fasta</em> in the data folder
 of my project, which I put in to a sub folder of alignment results
 called <em>alignment_results</em></li>
 </ul>
 </div>
+</div>
 <div id="building-simpler-trees-to-start" class="section level2">
-<h2>Building simpler trees to start</h2>
-<p>loaded packages:
-<code>{r} library(ape) library(adegenet) library(phangorn)</code></p>
+<h2><strong>Building simpler trees to start</strong></h2>
+<div id="loaded-packages" class="section level4">
+<h4>loaded packages:</h4>
+<pre><code>library(ape)
+library(adegenet)
+library(phangorn)</code></pre>
+</div>
 <div id="distance-based-tree" class="section level3">
 <h3>Distance-based tree</h3>
 <p><strong>Distance-based trees are built via computation of pairwise
@@ -459,28 +465,29 @@ heterogeneous base frequencies.</p>
 multiple equally-possible options. Also, the optimization of pairwise
 genetic distances and the built tree is very algorithmic rather than
 explicitly based in evolutionary biology.</p>
-<ul>
-<li>loading sample data</li>
-</ul>
-<p><code>{r} dna &lt;- fasta2DNAbin(file=&quot;data/alignment_results/MAFFT_aligned.fasta&quot;)</code></p>
-<ul>
-<li>computation of genetic distances (Tamura and Nei 1993 model)</li>
-</ul>
-<p>(idk if this is correct model to use it was this that we used in
-class demonstration though, may edit)</p>
-<p><code>{r} D &lt;- dist.dna(dna, model=&quot;TN93&quot;)</code></p>
-<ul>
-<li>getting NJ tree</li>
-</ul>
-<p><code>{r} tre &lt;- nj(D)</code></p>
-<ul>
-<li>ladderize</li>
-</ul>
-<p><code>{r} tre &lt;- ladderize(tre)</code></p>
-<ul>
-<li>plot tree
-<code>{r} plot(tre, cex=.6) title(&quot;Simple NJ tree&quot;)</code></li>
-</ul>
+<div id="loading-sample-data" class="section level4">
+<h4>Loading sample data</h4>
+<pre><code>dna &lt;- fasta2DNAbin(file=&quot;data/alignment_results/MAFFT_aligned.fasta&quot;)</code></pre>
+</div>
+<div id="computation-of-genetic-distances-tamura-and-nei-1993-model" class="section level4">
+<h4>Computation of genetic distances (Tamura and Nei 1993 model)</h4>
+<p><em>(idk if this is correct model to use it was this that we used in
+class demonstration though, may edit)</em></p>
+<pre><code>D &lt;- dist.dna(dna, model=&quot;TN93&quot;)</code></pre>
+</div>
+<div id="getting-nj-tree" class="section level4">
+<h4>getting NJ tree</h4>
+<pre><code>tre &lt;- nj(D)</code></pre>
+</div>
+<div id="ladderize" class="section level4">
+<h4>ladderize</h4>
+<pre><code>tre &lt;- ladderize(tre)</code></pre>
+</div>
+<div id="plot-tree" class="section level4">
+<h4>plot tree</h4>
+<pre><code>plot(tre, cex=.6)
+title(&quot;Simple NJ tree&quot;)</code></pre>
+</div>
 </div>
 <div id="parsimony-based-tree" class="section level3">
 <h3>Parsimony-based tree</h3>
@@ -494,130 +501,148 @@ and mutating</p>
 <p><strong>Limitations:</strong> assumes the simplest scenario, which
 doesn’t account for large eveolutionary events well. This model is also
 more simple and computer intensive than some of it’s counterparts.</p>
-<ul>
-<li><p>R packages loaded above</p></li>
-<li><p>conversion of sample data in to phangorn object</p></li>
-</ul>
-<p><code>{r} dna2 &lt;- as.phyDat(dna)</code></p>
-<ul>
-<li>starting tree</li>
-</ul>
-<p><code>{r} starting_tree &lt;- nj(dist.dna(dna,model=&quot;raw&quot;)) parsimony(starting_tree, dna2)</code></p>
-<ul>
-<li>searching for tree with max. parsimony</li>
-</ul>
-<p><code>{r} parsimony_tree &lt;- optim.parsimony(starting_tree, dna2)</code></p>
-<ul>
-<li><p>console: final p-score 1037 after 0 nni operations(??)</p></li>
-<li><p>root the tree:
-<code>{r} rtre = root(parsimony_tree, node = 19)</code></p></li>
-<li><p>tree plot</p></li>
-</ul>
-<p><code>{r} plot(parsimony_tree, cex=0.6) title(&quot;Parsimony tree&quot;)</code></p>
+<div id="r-packages-loaded-above" class="section level4">
+<h4>R packages loaded above</h4>
 </div>
-<div id="maximum-likelihood-trees-and-inference" class="section level3">
-<h3>Maximum Likelihood trees and inference</h3>
+<div id="conversion-of-sample-data-in-to-phangorn-object" class="section level4">
+<h4>Conversion of sample data in to phangorn object</h4>
+<pre><code>dna2 &lt;- as.phyDat(dna)</code></pre>
+</div>
+<div id="starting-tree" class="section level4">
+<h4>Starting tree</h4>
+<pre><code>starting_tree &lt;- nj(dist.dna(dna,model=&quot;raw&quot;))
+parsimony(starting_tree, dna2)</code></pre>
+</div>
+<div id="searching-for-tree-with-max.-parsimony" class="section level4">
+<h4>Searching for tree with max. parsimony</h4>
+<pre><code>parsimony_tree &lt;- optim.parsimony(starting_tree, dna2)</code></pre>
+</div>
+<div id="section" class="section level4">
+<h4></h4>
+<ul>
+<li><strong>console: final p-score 1037 after 0 nni
+operations</strong></li>
+</ul>
+</div>
+<div id="root-the-tree" class="section level4">
+<h4>Root the tree:</h4>
+<pre><code>rtre = root(parsimony_tree, node = 19)</code></pre>
+</div>
+<div id="tree-plot" class="section level4">
+<h4>Tree plot</h4>
+<pre><code>plot(parsimony_tree, cex=0.6)
+title(&quot;Parsimony tree&quot;)</code></pre>
 </div>
 </div>
+</div>
+</div>
+<div id="maximum-likelihood-trees-and-inference" class="section level1">
+<h1><strong>Maximum Likelihood trees and inference</strong></h1>
 <div id="raxml-ng-v1.2.2" class="section level2">
-<h2>RAxML-NG v1.2.2</h2>
-<ul>
-<li>input alignment</li>
-</ul>
+<h2><strong>RAxML-NG v1.2.2</strong></h2>
+<div id="input-alignment" class="section level4">
+<h4>Input alignment:</h4>
 <p>data/alignment_results/MAFFT_aligned.fasta</p>
-<ul>
-<li>verify format command:</li>
-</ul>
-<p>raxml-ng –check –msa data/alignment_results/MAFFT_aligned.fasta
-–model GTR+G –prefix results/mafft_check</p>
 </div>
+<div id="verify-format-command" class="section level4">
+<h4>Verify format command:</h4>
+<pre><code>raxml-ng --check --msa data/alignment_results/MAFFT_aligned.fasta --model GTR+G --prefix results/mafft_check</code></pre>
+<p><em>RAxML detected two identical sequences, so it reduced the
+alignment for computational purposes (C.MZ.2018.S04.OK649268 and
+C.MZ.2018.S06.OK649270)</em> <em>Alignment has 3094 sites and 15
+taxa</em></p>
 </div>
-<div id="raxml-detected-two-identical-sequences-so-it-reduced-the-alignment-for-computational-purposes-c.mz.2018.s04.ok649268-and-c.mz.2018.s06.ok649270" class="section level1">
-<h1>RAxML detected two identical sequences, so it reduced the alignment
-for computational purposes (C.MZ.2018.S04.OK649268 and
-C.MZ.2018.S06.OK649270)</h1>
-<p>Alignment has 3094 sites and 15 taxa</p>
-</div>
-<div id="reduced-alignment-for-analysis" class="section level1">
-<h1>reduced alignment for analysis</h1>
+<div id="reduced-alignment-for-analysis" class="section level4">
+<h4>Reduced alignment for analysis</h4>
 <p>results/mafft_check.raxml.reduced.phy</p>
 </div>
-<div id="build-raxml-ml-tree-command" class="section level1">
-<h1>build RAxML ML tree command</h1>
-<p>raxml-ng –search –msa results/mafft_check.raxml.reduced.phy –model
-GTR+G –prefix results/mafft_ml</p>
+<div id="build-raxml-ml-tree-command" class="section level4">
+<h4>Build RAxML ML tree command</h4>
+<pre><code>raxml-ng --search --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_ml</code></pre>
 <p><em>tree saves as results/mafft_ml.raxml.bestTree</em></p>
 </div>
-<div id="output" class="section level1">
-<h1>output:</h1>
+<div id="output" class="section level4">
+<h4>Output:</h4>
 <ul>
 <li><p>logLikelihood: -9274.482730</p></li>
 <li><p>14 taxa due to duplicate removed for computation</p></li>
 </ul>
 </div>
-<div id="bootstrap-trees-command" class="section level1">
-<h1>bootstrap trees command</h1>
-<p>raxml-ng –bootstrap –msa results/mafft_check.raxml.reduced.phy –model
-GTR+G –prefix results/mafft_boot</p>
-<ul>
-<li>bootstrap replicate tree output:</li>
-</ul>
+</div>
+</div>
+<div id="section-1" class="section level1">
+<h1></h1>
+<div id="bootstrap-trees-command" class="section level4">
+<h4>Bootstrap trees command:</h4>
+<pre><code>raxml-ng --bootstrap --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_boot</code></pre>
+</div>
+<div id="bootstrap-replicate-tree-output" class="section level4">
+<h4>Bootstrap replicate tree output:</h4>
 <p>results/mafft_boot.raxml.bootstraps</p>
-<ul>
-<li>map bootstrap to best ML tree command</li>
-</ul>
-<p>raxml-ng –support –tree results/mafft_ml.raxml.bestTree –bs-trees
-results/mafft_boot.raxml.bootstraps –prefix results/mafft_support</p>
-<ul>
-<li>tree: results/mafft_support.raxml.support</li>
-</ul>
-<p>commands: #loading packages <code>{r} library(ape)</code></p>
 </div>
-<div id="loading-raxml-tree" class="section level1">
-<h1>loading RAxML tree</h1>
-<p><code>{r} tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></p>
-<p>#plot tree <code>{r} plot(tree)</code></p>
-<div id="maximum-likelihood-iq-tree-v3.0.1" class="section level3">
-<h3>Maximum likelihood IQ-TREE v3.0.1</h3>
+<div id="map-bootstrap-to-best-ml-tree-command" class="section level4">
+<h4>Map bootstrap to best ML tree command:</h4>
+<pre><code>raxml-ng --support --tree results/mafft_ml.raxml.bestTree --bs-trees results/mafft_boot.raxml.bootstraps --prefix results/mafft_support</code></pre>
+</div>
+<div id="tree" class="section level4">
+<h4>Tree:</h4>
+<p>results/mafft_support.raxml.support</p>
+</div>
+<div id="commands" class="section level4">
+<h4>Commands:</h4>
+<p>loading packages:</p>
+<pre><code>library(ape)</code></pre>
+<p>loading RAxML tree:</p>
+<pre><code>tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></pre>
+<p>plot tree:</p>
+<pre><code>plot(tree)</code></pre>
 </div>
 </div>
-<div id="description" class="section level1">
-<h1>Description:</h1>
-<p>IQ-TREE is an software used for phylogenetic inference by maximum
+<div id="section-2" class="section level1">
+<h1></h1>
+</div>
+<div id="section-3" class="section level1">
+<h1></h1>
+<div id="iq-tree-v3.0.1" class="section level2">
+<h2><strong>IQ-TREE v3.0.1</strong></h2>
+<div id="description-1" class="section level3">
+<h3>Description:</h3>
+<p>IQ-TREE is a software used for phylogenetic inference by maximum
 likelihood.The software package includes model selection through
 ModelFinder, an effective search algorithm, and fast bootstrapping.</p>
-</div>
-<div id="assumptions-httpsiqtree.github.iodocassessing-phylogenetic-assumptions" class="section level1">
-<h1>Assumptions (<a href="https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions" class="uri">https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions</a>):</h1>
+<p><strong>Assumptions:</strong> (<a href="https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions" class="uri">https://iqtree.github.io/doc/Assessing-Phylogenetic-Assumptions</a>)</p>
 <ul>
-<li>treelikeness: all sites in aligned data were yielded from the same
-tree</li>
-<li>stationarity: constant frequency of nucleotides and amino acids
-through time</li>
-<li>reversibility: substitutions equally likely in both directions</li>
-<li>homogeneity: constant substitution rate through time</li>
+<li><p>treelikeness: all sites in aligned data were yielded from the
+same tree</p></li>
+<li><p>stationarity: constant frequency of nucleotides and amino acids
+through time</p></li>
+<li><p>reversibility: substitutions equally likely in both
+directions</p></li>
+<li><p>homogeneity: constant substitution rate through time</p></li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li><p>quality of alignment determines results</p></li>
+<li><p>extensive bootstrapping still presents uncertainty</p></li>
+<li><p>weak phylogenetic signals within a dataset may require parameter
+adjustment</p></li>
 </ul>
 </div>
-<div id="limitations" class="section level1">
-<h1>Limitations:</h1>
-<ul>
-<li>quality of alignment determines results</li>
-<li>extensive bootstrapping still presents uncertainty</li>
-<li>weak phylogenetic signals within a dataset may require parameter
-adjustment</li>
-</ul>
-</div>
-<div id="input-alignment" class="section level1">
-<h1>input alignment:</h1>
+<div id="input-alignment-1" class="section level3">
+<h3>Input alignment:</h3>
 <p>data/alignment_results/MAFFT_aligned.fasta</p>
 </div>
-<div id="command-input" class="section level1">
-<h1>command input</h1>
-<p>~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s
-data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000</p>
 </div>
-<div id="output-mafft_aligned.fasta.log" class="section level1">
-<h1>output (MAFFT_aligned.fasta.log)</h1>
+</div>
+<div id="section-4" class="section level1">
+<h1></h1>
+<div id="command-input" class="section level3">
+<h3>Command input</h3>
+<pre><code>~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000</code></pre>
+</div>
+<div id="output-1" class="section level3">
+<h3>Output</h3>
+<p><strong>MAFFT_aligned.fasta.log</strong></p>
 <ul>
 <li><p>15 sequences, 3094 sites</p></li>
 <li><p>1 pair of identical seq (NOTE: C.MZ.2018.S06.OK649270 is
@@ -627,6 +652,7 @@ CPU)</p></li>
 <li><p>best-fit model (Bayesian Information Criterion):
 TIM3+F+I</p></li>
 </ul>
+</div>
 </div>
 
 
