@@ -653,6 +653,46 @@ CPU)</p></li>
 TIM3+F+I</p></li>
 </ul>
 </div>
+<div id="mrbayes---bayesian-inference" class="section level2">
+<h2>MrBayes - Bayesian Inference</h2>
+<div id="description-xxxxxxxxxxx" class="section level3">
+<h3>Description: xxxxxxxxxxx</h3>
+<p><strong>Assumptions</strong> - “Concatenation methods implicitly
+assume that all gene loci share the same topology and branch lengths.”
+(Huelsenbeck and Ronquist) - data homogeneity</p>
+<p><strong>Limitations</strong> - dependent on correctness of model</p>
+</div>
+<div id="commands-1" class="section level3">
+<h3>Commands</h3>
+<div id="first-converting-.fasta-to-.nex" class="section level4">
+<h4>First, converting .fasta to .nex</h4>
+<pre><code>library(ape)
+dna &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned.fasta&quot;, format = &quot;fasta&quot;)
+write.nexus.data(dna, file = &quot;data/alignment_results/MAFFT_aligned.nex&quot;, format= &quot;dna&quot;)</code></pre>
+</div>
+<div id="running-mrbayes" class="section level4">
+<h4>Running MrBayes</h4>
+<pre><code>mb
+
+MrBayes &gt; execute data/alignment_results/MAFFT_aligned.nex
+
+MrBayes &gt; lset nst=6 rates=propinv
+
+mcmc ngen=10000
+
+sump 
+
+sumt </code></pre>
+</div>
+<div id="output-2" class="section level4">
+<h4>Output</h4>
+<ul>
+<li><p>summarization of all sample trees to one summary tree</p></li>
+<li><p>confidence values (posterior probabilities)</p></li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 
 

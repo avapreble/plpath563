@@ -321,3 +321,47 @@ Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
 - best-fit model (Bayesian Information Criterion): TIM3+F+I
 
 
+
+## MrBayes - Bayesian Inference
+
+### Description: xxxxxxxxxxx
+
+**Assumptions**
+- "Concatenation methods implicitly assume that all gene loci share the same topology and branch lengths." (Huelsenbeck and Ronquist)
+- data homogeneity 
+
+**Limitations**
+- dependent on correctness of model
+
+
+### Commands
+
+#### First, converting .fasta to .nex
+```
+library(ape)
+dna <- read.dna("data/alignment_results/MAFFT_aligned.fasta", format = "fasta")
+write.nexus.data(dna, file = "data/alignment_results/MAFFT_aligned.nex", format= "dna")
+```
+
+#### Running MrBayes
+```
+mb
+
+MrBayes > execute data/alignment_results/MAFFT_aligned.nex
+
+MrBayes > lset nst=6 rates=propinv
+
+mcmc ngen=10000
+
+sump 
+
+sumt 
+```
+
+#### Output
+
+- summarization of all sample trees to one summary tree
+
+- confidence values (posterior probabilities)
+
+
