@@ -324,13 +324,21 @@ Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
 
 ## MrBayes - Bayesian Inference
 
-### Description: xxxxxxxxxxx
+### Description: 
+MrBayes is a software used for Bayesian inference modeling. Bayesian inference begins with a prior probability that is continually updated with the addition of more data to produce a posterior probability.
 
-**Assumptions**
+**Assumptions:**
+
 - "Concatenation methods implicitly assume that all gene loci share the same topology and branch lengths." (Huelsenbeck and Ronquist)
+
 - data homogeneity 
 
-**Limitations**
+- correct substitution model chosen
+
+**Limitations:**
+
+- dependent on alignment quality
+
 - dependent on correctness of model
 
 
