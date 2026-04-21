@@ -1,0 +1,29 @@
+### ASTRAL Coalescent Homework with mock data
+
+*ASTRAL description:*
+
+ASTRAL is a coalescent modeling software used after inferring a gene tree in order to reconstruct the best fitting model of the species tree. 
+
+*Assumptions:* 
+
+- input gene tree in Newick format (allowed to have some missing elements, like taxa or unresolved branches)
+
+- input tree sampled randomly under multi-species coalecent model
+
+- presence of a gene is independent of gene tree topology and other genes from species
+
+- ILS causes most inconsistencies
+
+
+*Limitations:*
+
+- inconsistent depending on gene tree quality
+
+- inconsistent under conditions with gene trees evolving on a phylogenetic network
+
+
+Commands used:
+
+```
+java -jar astral.5.7.8.jar -i test_data/simulated_14taxon.gene.tre -o output.tre
+```
