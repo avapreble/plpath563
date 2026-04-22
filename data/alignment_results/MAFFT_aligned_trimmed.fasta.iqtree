@@ -1,0 +1,266 @@
+IQ-TREE 3.0.1 built May  5 2025
+
+Input file name: data/alignment_results/MAFFT_aligned_trimmed.fasta
+Type of analysis: ModelFinder + tree reconstruction + ultrafast bootstrap (1000 replicates)
+Random seed number: 476108
+
+REFERENCES
+----------
+
+To cite IQ-TREE 3 please use:
+
+Thomas K.F. Wong, Nhan Ly-Trong, Huaiyan Ren, Hector Banos, Andrew J. Roger,
+Edward Susko, Chris Bielow, Nicola De Maio, Nick Goldman, Matthew W. Hahn,
+Gavin Huttley, Robert Lanfear, Bui Quang Minh (2025)
+IQ-TREE 3: Phylogenomic Inference Software using Complex Evolutionary Models.
+Submitted.
+
+Please also cite the following paper(s) for the feature(s) that you used:
+
+To cite ModelFinder please use: 
+
+Subha Kalyaanamoorthy, Bui Quang Minh, Thomas KF Wong, Arndt von Haeseler,
+and Lars S Jermiin (2017) ModelFinder: Fast model selection for
+accurate phylogenetic estimates. Nature Methods, 14:587–589.
+https://doi.org/10.1038/nmeth.4285
+
+Since you used ultrafast bootstrap (UFBoot) please also cite: 
+
+Diep Thi Hoang, Olga Chernomor, Arndt von Haeseler, Bui Quang Minh,
+and Le Sy Vinh (2018) UFBoot2: Improving the ultrafast bootstrap
+approximation. Mol. Biol. Evol., 35:518–522.
+https://doi.org/10.1093/molbev/msx281
+
+SEQUENCE ALIGNMENT
+------------------
+
+Input data: 15 sequences with 3094 nucleotide sites
+Number of constant sites: 2361 (= 76.309% of all sites)
+Number of invariant (constant or ambiguous constant) sites: 2361 (= 76.309% of all sites)
+Number of parsimony informative sites: 614
+Number of distinct site patterns: 332
+
+ModelFinder
+-----------
+
+Best-fit model according to BIC: TIM3+F+I
+
+List of models sorted by BIC scores: 
+
+Model                  LogL         AIC      w-AIC        AICc     w-AICc         BIC      w-BIC
+TIM3+F+I          -9276.264   18620.528 +   0.0749   18621.307 +   0.0781   18825.794 +    0.765
+TIM+F+I           -9278.211   18624.421 -   0.0107   18625.199 -   0.0112   18829.687 +    0.109
+TPM3u+F+I         -9283.215   18632.429 - 0.000195   18633.162 - 0.000208   18831.657 -   0.0408
+TN+F+I            -9283.238   18632.476 -  0.00019   18633.210 - 0.000203   18831.705 -   0.0398
+GTR+F+I           -9271.766   18615.531 +    0.911   18616.403 +    0.907   18832.871 -   0.0222
+TIM2+F+I          -9280.473   18628.946 -  0.00111   18629.724 -  0.00116   18834.211 -   0.0114
+K3Pu+F+I          -9284.975   18635.950 - 3.35e-05   18636.684 - 3.58e-05   18835.179 -  0.00701
+HKY+F+I           -9289.988   18643.975 - 6.06e-07   18644.665 - 6.61e-07   18837.166 -   0.0026
+TVM+F+I           -9278.794   18627.588 -  0.00219   18628.412 -  0.00224   18838.891 -   0.0011
+TPM2u+F+I         -9287.270   18640.541 - 3.38e-06   18641.274 -  3.6e-06   18839.769 - 0.000707
+TPM2u+I           -9462.711   18985.421 - 4.35e-81   18986.029 - 4.95e-81   19166.538 -  7.8e-75
+TPM2+I            -9462.711   18985.422 - 4.35e-81   18986.029 - 4.95e-81   19166.538 -  7.8e-75
+TPM2+I            -9462.711   18985.422 - 4.35e-81   18986.029 - 4.95e-81   19166.538 -  7.8e-75
+TIM2+I            -9462.269   18986.539 - 2.49e-81   18987.187 - 2.77e-81   19173.693 - 2.18e-76
+TIM2e+I           -9462.270   18986.539 - 2.49e-81   18987.187 - 2.77e-81   19173.693 - 2.18e-76
+TIM2e+I           -9462.270   18986.539 - 2.49e-81   18987.187 - 2.77e-81   19173.693 - 2.18e-76
+TVM+I             -9458.941   18981.883 - 2.55e-80   18982.573 - 2.78e-80   19175.074 - 1.09e-76
+TVMe+I            -9458.941   18981.883 - 2.55e-80   18982.573 - 2.78e-80   19175.074 - 1.09e-76
+TVMe+I            -9458.941   18981.883 - 2.55e-80   18982.573 - 2.78e-80   19175.074 - 1.09e-76
+HKY+I             -9472.039   19002.078 - 1.05e-84   19002.646 - 1.22e-84   19177.157 - 3.86e-77
+K2P+I             -9472.039   19002.078 - 1.05e-84   19002.646 - 1.22e-84   19177.157 - 3.86e-77
+K2P+I             -9472.039   19002.078 - 1.05e-84   19002.646 - 1.22e-84   19177.157 - 3.86e-77
+K3Pu+I            -9469.106   18998.211 - 7.27e-84   18998.818 - 8.26e-84   19179.328 -  1.3e-77
+K3P+I             -9469.106   18998.211 - 7.27e-84   18998.818 - 8.26e-84   19179.328 -  1.3e-77
+K3P+I             -9469.106   18998.211 - 7.27e-84   18998.818 - 8.26e-84   19179.328 -  1.3e-77
+TPM3u+I           -9469.499   18998.998 -  4.9e-84   18999.605 - 5.57e-84   19180.115 - 8.79e-78
+TPM3+I            -9469.500   18999.001 -  4.9e-84   18999.608 - 5.57e-84   19180.117 - 8.78e-78
+TPM3+I            -9469.500   18999.001 -  4.9e-84   18999.608 - 5.57e-84   19180.117 - 8.78e-78
+GTR+I             -9458.502   18983.005 - 1.46e-80   18983.738 - 1.55e-80   19182.233 - 3.05e-78
+SYM+I             -9458.503   18983.005 - 1.46e-80   18983.739 - 1.55e-80   19182.234 - 3.05e-78
+SYM+I             -9458.503   18983.005 - 1.46e-80   18983.739 - 1.55e-80   19182.234 - 3.05e-78
+TN+I              -9471.658   19003.315 - 5.66e-85   19003.923 - 6.44e-85   19184.432 - 1.02e-78
+TNe+I             -9471.659   19003.317 - 5.66e-85   19003.924 - 6.43e-85   19184.434 - 1.01e-78
+TNe+I             -9471.659   19003.317 - 5.66e-85   19003.924 - 6.43e-85   19184.434 - 1.01e-78
+TIM+I             -9468.734   18999.468 - 3.88e-84   19000.116 - 4.32e-84   19186.621 -  3.4e-79
+TIMe+I            -9468.734   18999.468 - 3.88e-84   19000.116 - 4.32e-84   19186.622 -  3.4e-79
+TIMe+I            -9468.734   18999.468 - 3.88e-84   19000.116 - 4.32e-84   19186.622 -  3.4e-79
+TIM3+I            -9469.124   19000.247 - 2.63e-84   19000.895 - 2.92e-84   19187.401 -  2.3e-79
+TIM3e+I           -9469.124   19000.248 - 2.62e-84   19000.896 - 2.92e-84   19187.402 -  2.3e-79
+TIM3e+I           -9469.124   19000.248 - 2.62e-84   19000.896 - 2.92e-84   19187.402 -  2.3e-79
+F81+F+I           -9743.152   19548.303 - 2.57e-203   19548.951 - 2.87e-203   19735.457 - 2.25e-198
+JC+I              -9938.724   19933.448 - 5.99e-287   19933.978 - 7.07e-287   20102.490 - 4.49e-278
+JC+I              -9938.724   19933.448 - 5.99e-287   19933.978 - 7.07e-287   20102.490 - 4.49e-278
+F81+I             -9938.726   19933.453 - 5.97e-287   19933.983 - 7.06e-287   20102.495 - 4.48e-278
+JC+G4             -9943.811   19943.621 - 3.7e-289   19944.151 - 4.37e-289   20112.664 - 2.78e-280
+JC+R2             -9940.070   19938.140 - 5.73e-288   19938.708 - 6.65e-288   20113.220 - 2.1e-280
+JC+I+R2           -9939.756   19939.513 - 2.89e-288   19940.120 - 3.28e-288   20120.629 - 5.17e-282
+JC+I+G4           -9945.367   19948.735 - 2.87e-290   19949.303 - 3.33e-290   20123.814 - 1.05e-282
+JC+R3             -9940.267   19942.534 - 6.37e-289   19943.182 - 7.1e-289   20129.688 - 5.58e-284
+JC+I+R3           -9939.785   19943.570 - 3.8e-289   19944.260 - 4.14e-289   20136.761 - 1.62e-285
+JC               -10078.204   20210.408 -        0   20210.901 -        0   20373.413 -        0
+
+AIC, w-AIC   : Akaike information criterion scores and weights.
+AICc, w-AICc : Corrected AIC scores and weights.
+BIC, w-BIC   : Bayesian information criterion scores and weights.
+
+Plus signs denote the 95% confidence sets.
+Minus signs denote significant exclusion.
+
+SUBSTITUTION PROCESS
+--------------------
+
+Model of substitution: TIM3+F+I
+
+Rate parameter R:
+
+  A-C: 1.8081
+  A-G: 9.9586
+  A-T: 1.0000
+  C-G: 1.8081
+  C-T: 14.0892
+  G-T: 1.0000
+
+State frequencies: (empirical counts from alignment)
+
+  pi(A) = 0.3904
+  pi(C) = 0.1665
+  pi(G) = 0.2284
+  pi(T) = 0.2147
+
+Rate matrix Q:
+
+  A   -0.8155     0.088    0.6647   0.06275
+  C    0.2063    -1.211    0.1207     0.884
+  G     1.136     0.088    -1.287   0.06275
+  T    0.1141    0.6857   0.06675   -0.8666
+
+Model of rate heterogeneity: Invar
+Proportion of invariable sites: 0.6323
+
+ Category  Relative_rate  Proportion
+  0         0              0.6323
+  1         2.719          0.3677
+
+MAXIMUM LIKELIHOOD TREE
+-----------------------
+
+Log-likelihood of the tree: -9276.2610 (s.e. 153.6919)
+Unconstrained log-likelihood (without tree): -9171.3638
+Number of free parameters (#branches + #model parameters): 34
+Akaike information criterion (AIC) score: 18620.5220
+Corrected Akaike information criterion (AICc) score: 18621.3000
+Bayesian information criterion (BIC) score: 18825.7875
+
+Total tree length (sum of branch lengths): 0.4269
+Sum of internal branch lengths: 0.2723 (63.7803% of tree length)
+
+WARNING: 3 near-zero internal branches (<0.0003) should be treated with caution
+         Such branches are denoted by '**' in the figure below
+
+NOTE: Tree is UNROOTED although outgroup taxon 'C.MZ.2018.S02.OK649266' is drawn at root
+Numbers in parentheses are  ultrafast bootstrap support (%)
+
++--------------------C.MZ.2018.S02.OK649266
+|
+|                    +**C.MZ.2018.S04.OK649268
+|  +-----------------| (100)
+|  |                 +**C.MZ.2018.S06.OK649270
++--| (56)
+|  |                                            +--01_AE.TH.2018.A_OnART_47.ON903098
+|  |                                      +-----| (100)
+|  |                                      |     +--01_AE.TH.2018.A_OnART_06.ON903078
+|  |             +------------------------| (100)
+|  |             |                        |              +--01_AE.TH.2018.B_OnART_62.ON863057
+|  |             |                        |  +-----------| (100)
+|  |             |                        |  |           +--01_AE.TH.2018.B_OnART_09.ON863022
+|  |             |                        +--| (49)
+|  |             |                           +------------01_AE.TH.2018.C_OnART_64.ON863108
+|  +-------------| (100)
+|                |                                  +--B.US.2018.101-LN-1N18.MK169417
+|                |                               +**| (21)
+|                |                               |  +--B.US.2018.101-PB-22F9.MK169441
+|                |                            +**| (55)
+|                |                            |  |  +--B.US.2018.101-LN-2M5.MK169418
+|                |                            |  +**| (16)
+|                |                            |     +--B.US.2018.101-PB-8C9.MK169431
+|                +----------------------------| (100)
+|                                             +--B.US.2018.101-LN-5K17.MK169422
+|
+|               +--C.MZ.2018.S23.OK649287
++---------------| (100)
+                +--C.MZ.2018.S29.OK649293
+
+Tree in newick format:
+
+(C.MZ.2018.S02.OK649266:0.0519907103,((C.MZ.2018.S04.OK649268:0.0000010000,C.MZ.2018.S06.OK649270:0.0000010000)100:0.0451852109,(((01_AE.TH.2018.A_OnART_47.ON903098:0.0054210693,01_AE.TH.2018.A_OnART_06.ON903078:0.0070557841)100:0.0159280326,((01_AE.TH.2018.B_OnART_62.ON863057:0.0025810296,01_AE.TH.2018.B_OnART_09.ON863022:0.0015005085)100:0.0296074441,01_AE.TH.2018.C_OnART_64.ON863108:0.0320002371)49:0.0060425794)100:0.0630851626,(((B.US.2018.101-LN-1N18.MK169417:0.0006738316,B.US.2018.101-PB-22F9.MK169441:0.0006735002)21:0.0000010000,(B.US.2018.101-LN-2M5.MK169418:0.0006735399,B.US.2018.101-PB-8C9.MK169431:0.0030475407)16:0.0000010000)55:0.0002343274,B.US.2018.101-LN-5K17.MK169422:0.0017950392)100:0.0725828935)100:0.0353545120)56:0.0090389691,(C.MZ.2018.S23.OK649287:0.0005727740,C.MZ.2018.S29.OK649293:0.0014530001)100:0.0404085186);
+
+CONSENSUS TREE
+--------------
+
+Consensus tree is constructed from 1000 bootstrap trees
+Log-likelihood of consensus tree: -9276.275940
+Robinson-Foulds distance between ML tree and consensus tree: 4
+
+Branches with support >0.000000% are kept (extended consensus)
+Branch lengths are optimized by maximum likelihood on original alignment
+Numbers in parentheses are bootstrap supports (%)
+
++--------------------C.MZ.2018.S02.OK649266
+|
+|                    +--C.MZ.2018.S04.OK649268
+|  +-----------------| (100)
+|  |                 +--C.MZ.2018.S06.OK649270
++--| (56)
+|  |                                            +--01_AE.TH.2018.A_OnART_47.ON903098
+|  |                                      +-----| (100)
+|  |                                      |     +--01_AE.TH.2018.A_OnART_06.ON903078
+|  |             +------------------------| (100)
+|  |             |                        |              +--01_AE.TH.2018.B_OnART_62.ON863057
+|  |             |                        |  +-----------| (100)
+|  |             |                        |  |           +--01_AE.TH.2018.B_OnART_09.ON863022
+|  |             |                        +--| (49)
+|  |             |                           +------------01_AE.TH.2018.C_OnART_64.ON863108
+|  +-------------| (100)
+|                |                                  +--B.US.2018.101-LN-1N18.MK169417
+|                |                               +--| (27)
+|                |                               |  +--B.US.2018.101-PB-8C9.MK169431
+|                |                            +--| (55)
+|                |                            |  |  +--B.US.2018.101-LN-2M5.MK169418
+|                |                            |  +--| (31)
+|                |                            |     +--B.US.2018.101-PB-22F9.MK169441
+|                +----------------------------| (100)
+|                                             +--B.US.2018.101-LN-5K17.MK169422
+|
+|               +--C.MZ.2018.S23.OK649287
++---------------| (100)
+                +--C.MZ.2018.S29.OK649293
+
+
+Consensus tree in newick format: 
+
+(C.MZ.2018.S02.OK649266:0.0519913391,((C.MZ.2018.S04.OK649268:0.0000022589,C.MZ.2018.S06.OK649270:0.0000022589)100:0.0451835957,(((01_AE.TH.2018.A_OnART_47.ON903098:0.0054212094,01_AE.TH.2018.A_OnART_06.ON903078:0.0070551098)100:0.0159156368,((01_AE.TH.2018.B_OnART_62.ON863057:0.0025814244,01_AE.TH.2018.B_OnART_09.ON863022:0.0014995783)100:0.0296057234,01_AE.TH.2018.C_OnART_64.ON863108:0.0319990795)49:0.0060467940)100:0.0630779349,(((B.US.2018.101-LN-1N18.MK169417:0.0006735795,B.US.2018.101-PB-8C9.MK169431:0.0030464398)27:0.0000022589,(B.US.2018.101-LN-2M5.MK169418:0.0006732999,B.US.2018.101-PB-22F9.MK169441:0.0006732597)31:0.0000022589)55:0.0002375714,B.US.2018.101-LN-5K17.MK169422:0.0017918234)100:0.0725752263)100:0.0353552445)56:0.0090395236,(C.MZ.2018.S23.OK649287:0.0005727587,C.MZ.2018.S29.OK649293:0.0014518792)100:0.0404063403);
+
+ALISIM COMMAND
+--------------
+To simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis, you can use the following command:
+
+--alisim simulated_MSA -t data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile -m "TIM3{1.80806,9.9586,14.0892}+F{0.390386,0.166534,0.228389,0.21469}+I{0.632282}" --length 3094
+
+To mimic the alignment used to produce this analysis, i.e. simulate an alignment of the same length as the original alignment, using the tree and model parameters estimated from this analysis *and* copying the same gap positions as the original alignment, you can use the following command:
+
+iqtree -s data/alignment_results/MAFFT_aligned_trimmed.fasta --alisim mimicked_MSA
+
+To simulate any number of alignments in either of the two commandlines above, use the --num-alignments options, for example mimic 100 alignments you would use the command line:
+
+iqtree -s data/alignment_results/MAFFT_aligned_trimmed.fasta --alisim mimicked_MSA --num-alignments 100
+
+For more information on using AliSim, please visit: www.iqtree.org/doc/AliSim
+
+TIME STAMP
+----------
+
+Date and time: Wed Apr 22 10:13:18 2026
+Total CPU time used: 1.901814 seconds (0h:0m:1s)
+Total wall-clock time used: 2.107808828 seconds (0h:0m:2s)
+

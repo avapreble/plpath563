@@ -20,3 +20,4 @@ plot(iq_td)
 nodelabels()
 iq_rooted = root(iq_td, node=17, resolve.root = TRUE)
 plot(iq_rooted)
+

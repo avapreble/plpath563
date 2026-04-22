@@ -20,12 +20,6 @@ countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
 of their variation in use of antiretroviral treatments.
 
-## **Quality Control**
-
-Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries).
-
-I will maintain detailed notes throughout the process to ensure my work
-is reproducible, as well as to document steps taken in QC.
 
 ## **Plan**
 
@@ -92,6 +86,20 @@ mafft combined_HIV2018.fasta > MAFFT_aligned.fasta   # code ran for running MAFF
     project, which I put in to a sub folder of alignment results called
     *alignment_results*
     
+**Quality control note:** Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries).
+    
+  ## Making a second, trimmed alignment for quality control
+  I created my original alignment and analyzed without trimming, but then I made a second alignment of the same data that was trimmed, removing columns that only consisted of gaps (see below). This did not change overall topology or support values in a major way.
+```
+library(ape)
+
+# removing columns with only gaps
+trim_alignment <- del.colgapsonly(dna)
+
+# save improved alignment
+write.dna(trim_alignment, file="data/alignment_results/MAFFT_aligned_trimmed.fasta", format="fasta")
+```
+- Similar to the original, we now have *MAFFT_aligned_trimmed.fasta* in *alignment_results*     
     
     
 ## **Building simpler trees to start**
@@ -149,7 +157,7 @@ title("Simple NJ tree")
 
 ### Parsimony-based tree
 
-**Parsinomy-based trees are built upon the basis of using the smallest number of genetic sequence changes between each taxa.**
+**Parsimony-based trees are built upon the basis of using the smallest number of genetic sequence changes between each taxa.**
 
 **Assumptions:** the simplest scenario, with the least amount of genetic changes, is the most likely. This is more accurate when the genetic changes are less compared to something rapidly evolving and mutating
 
@@ -322,6 +330,28 @@ Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
 
 
 
+### Re-running iqtree on trimmed alignment for quality control
+
+### Command input
+```
+iqtree3 -s data/alignment_results/MAFFT_aligned_trimmed.fasta -m MFP -B 1000
+```
+### Output
+**MAFFT_aligned_trimmed.fasta.log**
+
+
+### Visualize 
+#making tree with improved alignment
+new_iqtree <- read.tree("data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile") 
+
+#ladderize
+new_iqtree_ladderize <- ladderize(new_iqtree)
+
+plot(new_iqtree_ladderize, cex=0.5)
+nodelabels(cex=0.7)
+
+
+
 ## MrBayes - Bayesian Inference
 
 ### Description: 
@@ -372,4 +402,37 @@ sumt
 
 - confidence values (posterior probabilities)
 
+
+# visualize 
+```
+mrbayes_tree <- read.nexus("data/alignment_results/MAFFT_aligned.nex.con.tre") #loading in MB tree 
+plot(mrbayes_tree, cex=0.7)
+nodelabels(cex=0.8) #posterior probabilities
+```
+
+### Re-running MrBayes on trimmed alignment for quality control
+
+#### Converting trimmed .fasta to .nex
+```
+mrbayes_trimmed <- read.dna("data/alignment_results/MAFFT_aligned_trimmed.fasta", format = "fasta")
+write.nexus.data(mrbayes_trimmed, file = "data/alignment_results/MAFFT_aligned_trimmed.nex", format= "dna")
+```
+#### Running MrBayes on trimmed alignment
+```
+mb
+
+MrBayes > execute data/alignment_results/MAFFT_aligned_trimmed.nex
+
+mcmc ngen=500000 
+
+sump #summarizes parameter estimates
+
+sumt #summarizes trees
+```
+
+# visualize
+mb_trimmed_tree <- read.nexus("data/alignment_results/MAFFT_aligned_trimmed.nex.con.tre")
+mb_trimmed_ladderized <- ladderize(mb_trimmed_tree)
+plot(mb_trimmed_ladderized, cex=0.7)
+nodelabels(cex=0.8)
 

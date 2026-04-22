@@ -366,15 +366,6 @@ countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
 of their variation in use of antiretroviral treatments.</p>
 </div>
-<div id="quality-control" class="section level2">
-<h2><strong>Quality Control</strong></h2>
-<p>Using methods taught in class, I assembled and aligned my data with
-as much accuracy as possible. I ran MAFFT on my combined file
-(combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results
-from each of the 3 different countries).</p>
-<p>I will maintain detailed notes throughout the process to ensure my
-work is reproducible, as well as to document steps taken in QC.</p>
-</div>
 <div id="plan" class="section level2">
 <h2><strong>Plan</strong></h2>
 <ol style="list-style-type: decimal">
@@ -443,6 +434,26 @@ related sequences</p>
 of my project, which I put in to a sub folder of alignment results
 called <em>alignment_results</em></li>
 </ul>
+<p><strong>Quality control note:</strong> Using methods taught in class,
+I assembled and aligned my data with as much accuracy as possible. I ran
+MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences
+(5 random BLAST results from each of the 3 different countries).</p>
+<p>## Making a second, trimmed alignment for quality control I created
+my original alignment and analyzed without trimming, but then I made a
+second alignment of the same data that was trimmed, removing columns
+that only consisted of gaps (see below). This did not change overall
+topology or support values in a major way.</p>
+<pre><code>library(ape)
+
+# removing columns with only gaps
+trim_alignment &lt;- del.colgapsonly(dna)
+
+# save improved alignment
+write.dna(trim_alignment, file=&quot;data/alignment_results/MAFFT_aligned_trimmed.fasta&quot;, format=&quot;fasta&quot;)</code></pre>
+<ul>
+<li>Similar to the original, we now have
+<em>MAFFT_aligned_trimmed.fasta</em> in <em>alignment_results</em></li>
+</ul>
 </div>
 </div>
 <div id="building-simpler-trees-to-start" class="section level2">
@@ -491,7 +502,7 @@ title(&quot;Simple NJ tree&quot;)</code></pre>
 </div>
 <div id="parsimony-based-tree" class="section level3">
 <h3>Parsimony-based tree</h3>
-<p><strong>Parsinomy-based trees are built upon the basis of using the
+<p><strong>Parsimony-based trees are built upon the basis of using the
 smallest number of genetic sequence changes between each
 taxa.</strong></p>
 <p><strong>Assumptions:</strong> the simplest scenario, with the least
@@ -653,6 +664,24 @@ CPU)</p></li>
 TIM3+F+I</p></li>
 </ul>
 </div>
+<div id="re-running-iqtree-on-trimmed-alignment-for-quality-control" class="section level3">
+<h3>Re-running iqtree on trimmed alignment for quality control</h3>
+</div>
+<div id="command-input-1" class="section level3">
+<h3>Command input</h3>
+<pre><code>iqtree3 -s data/alignment_results/MAFFT_aligned_trimmed.fasta -m MFP -B 1000</code></pre>
+</div>
+<div id="output-2" class="section level3">
+<h3>Output</h3>
+<p><strong>MAFFT_aligned_trimmed.fasta.log</strong></p>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>#making tree with improved alignment new_iqtree &lt;-
+read.tree(“data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile”)</p>
+<p>#ladderize new_iqtree_ladderize &lt;- ladderize(new_iqtree)</p>
+<p>plot(new_iqtree_ladderize, cex=0.5) nodelabels(cex=0.7)</p>
+</div>
 <div id="mrbayes---bayesian-inference" class="section level2">
 <h2>MrBayes - Bayesian Inference</h2>
 <div id="description-2" class="section level3">
@@ -696,7 +725,7 @@ sump
 
 sumt </code></pre>
 </div>
-<div id="output-2" class="section level4">
+<div id="output-3" class="section level4">
 <h4>Output</h4>
 <ul>
 <li><p>summarization of all sample trees to one summary tree</p></li>
@@ -705,6 +734,39 @@ sumt </code></pre>
 </div>
 </div>
 </div>
+</div>
+<div id="visualize-1" class="section level1">
+<h1>visualize</h1>
+<pre><code>mrbayes_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;) #loading in MB tree 
+plot(mrbayes_tree, cex=0.7)
+nodelabels(cex=0.8) #posterior probabilities</code></pre>
+<div id="re-running-mrbayes-on-trimmed-alignment-for-quality-control" class="section level3">
+<h3>Re-running MrBayes on trimmed alignment for quality control</h3>
+<div id="converting-trimmed-.fasta-to-.nex" class="section level4">
+<h4>Converting trimmed .fasta to .nex</h4>
+<pre><code>mrbayes_trimmed &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned_trimmed.fasta&quot;, format = &quot;fasta&quot;)
+write.nexus.data(mrbayes_trimmed, file = &quot;data/alignment_results/MAFFT_aligned_trimmed.nex&quot;, format= &quot;dna&quot;)</code></pre>
+</div>
+<div id="running-mrbayes-on-trimmed-alignment" class="section level4">
+<h4>Running MrBayes on trimmed alignment</h4>
+<pre><code>mb
+
+MrBayes &gt; execute data/alignment_results/MAFFT_aligned_trimmed.nex
+
+mcmc ngen=500000 
+
+sump #summarizes parameter estimates
+
+sumt #summarizes trees</code></pre>
+</div>
+</div>
+</div>
+<div id="visualize-2" class="section level1">
+<h1>visualize</h1>
+<p>mb_trimmed_tree &lt;-
+read.nexus(“data/alignment_results/MAFFT_aligned_trimmed.nex.con.tre”)
+mb_trimmed_ladderized &lt;- ladderize(mb_trimmed_tree)
+plot(mb_trimmed_ladderized, cex=0.7) nodelabels(cex=0.8)</p>
 </div>
 
 
