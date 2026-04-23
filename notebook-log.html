@@ -434,10 +434,11 @@ data, since difference in results was minuscule. See the creation of the
 trimmed alignment to follow:</em></p>
 <div id="making-trimmed-alignment-quality-control" class="section level5">
 <h5>Making trimmed alignment (quality control)</h5>
-<p>I created my original alignment and analyzed without trimming, but
-then I made a second alignment of the same data that was trimmed,
-removing columns that only consisted of gaps (see below). This did not
-change overall topology or support values in a major way.</p>
+<p><a href="script/alignmentQC.R">R script here</a> I created my
+original alignment and analyzed without trimming, but then I made a
+second alignment of the same data that was trimmed, removing columns
+that only consisted of gaps (see below). This did not change overall
+topology or support values in a major way.</p>
 <pre><code>library(ape)
 
 # removing columns with only gaps
@@ -455,6 +456,7 @@ write.dna(trim_alignment, file=&quot;data/alignment_results/MAFFT_aligned_trimme
 </div>
 <div id="simpler-trees" class="section level2">
 <h2><strong>Simpler trees</strong></h2>
+<p><a href="scripts/DistanceAndParsimony.R">R scripts here</a></p>
 <div id="loaded-r-packages" class="section level4">
 <h4>Loaded R packages:</h4>
 <pre><code>library(ape)
@@ -551,6 +553,7 @@ title(&quot;Parsimony tree&quot;)</code></pre>
 <h1><strong>Maximum Likelihood trees and inference</strong></h1>
 <div id="raxml-ng-v1.2.2" class="section level2">
 <h2><strong>RAxML-NG v1.2.2</strong></h2>
+<p><a href="scripts/raxmlHIV.R">R scripts here</a></p>
 <div id="input-alignment" class="section level4">
 <h4>Input alignment:</h4>
 <pre><code>data/alignment_results/MAFFT_aligned.fasta</code></pre>
@@ -611,6 +614,7 @@ taxa</em></p>
 </div>
 <div id="iq-tree-v3.0.1" class="section level2">
 <h2><strong>IQ-TREE v3.0.1</strong></h2>
+<p><a href="scripts/IQTREE.R">R scipt here</a></p>
 <div id="description" class="section level3">
 <h3>Description:</h3>
 <p>IQ-TREE is a software used for phylogenetic inference by maximum
@@ -676,6 +680,7 @@ read.tree(“data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile”)</p>
 </div>
 <div id="mrbayes---bayesian-inference" class="section level2">
 <h2>MrBayes - Bayesian Inference</h2>
+<p><a href="mrbayes.R">R scripts here</a></p>
 <div id="description-1" class="section level3">
 <h3>Description:</h3>
 <p>MrBayes is a software used for Bayesian inference modeling. Bayesian
@@ -789,11 +794,13 @@ distmatrix &lt;- dist.dna(dna, model=&quot;raw&quot;)
 as.matrix(distmatrix)</code></pre>
 <p>Saving matrix as .csv (spreadsheet)</p>
 <pre><code>write.csv(as.matrix(distmatrix), file = &quot;results/matrix/distmatrix.csv&quot;)</code></pre>
-<p>The created distance matrix is comparing each of the 15 sequences to
+<ul>
+<li>The created distance matrix is comparing each of the 15 sequences to
 one another. Lower values indicate more similarity and higher values
 indicate less. Within each country, the strains have very high
 similarity. However, between each country, the strains are more
-variable.</p>
+variable.</li>
+</ul>
 <hr />
 </div>
 </div>

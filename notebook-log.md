@@ -84,6 +84,7 @@ data/alignment_results
 ***Quality control note:*** *Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries). Later, I decided to try to trim the data to see if it had any significant effect on the analyses. After assessing IQ-TREE and MrBayes outputs with the trimmed alignment and comparing them to the originals, I concluded I would not rework everything with the re-aligned data, since difference in results was minuscule. See the creation of the trimmed alignment to follow:*
     
 ##### Making trimmed alignment (quality control)
+[R script here](script/alignmentQC.R)
 I created my original alignment and analyzed without trimming, but then I made a second alignment of the same data that was trimmed, removing columns that only consisted of gaps (see below). This did not change overall topology or support values in a major way.
 ```
 library(ape)
@@ -99,6 +100,8 @@ write.dna(trim_alignment, file="data/alignment_results/MAFFT_aligned_trimmed.fas
 ---  
     
 ## **Simpler trees**
+
+[R scripts here](scripts/DistanceAndParsimony.R)
 
 #### Loaded R packages:
 ``` 
@@ -201,6 +204,7 @@ title("Parsimony tree")
 # **Maximum Likelihood trees and inference**
 
 ## **RAxML-NG v1.2.2**
+[R scripts here](scripts/raxmlHIV.R)
 
 
 #### Input alignment:
@@ -278,6 +282,7 @@ plot(tree)
 
 
 ## **IQ-TREE v3.0.1**
+[R scipt here](scripts/IQTREE.R)
 
 ### Description:
 IQ-TREE is a software used for phylogenetic inference by maximum likelihood.The software package includes model selection through ModelFinder, an effective search algorithm, and fast bootstrapping. 
@@ -350,6 +355,8 @@ nodelabels(cex=0.7)
 
 
 ## MrBayes - Bayesian Inference
+
+[R scripts here](mrbayes.R)
 
 ### Description: 
 MrBayes is a software used for Bayesian inference modeling. Bayesian inference begins with a prior probability that is continually updated with the addition of more data to produce a posterior probability.
@@ -468,7 +475,7 @@ Saving matrix as .csv (spreadsheet)
 ```
 write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
 ```
-The created distance matrix is comparing each of the 15 sequences to one another. Lower values indicate more similarity and higher values indicate less. Within each country, the strains have very high similarity. However, between each country, the strains are more variable. 
+- The created distance matrix is comparing each of the 15 sequences to one another. Lower values indicate more similarity and higher values indicate less. Within each country, the strains have very high similarity. However, between each country, the strains are more variable. 
 
 
 ---
