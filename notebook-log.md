@@ -83,7 +83,7 @@ data/alignment_results
 
 ***Quality control note:*** *Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries). Later, I decided to try to trim the data to see if it had any significant effect on the analyses. After assessing IQ-TREE and MrBayes outputs with the trimmed alignment and comparing them to the originals, I concluded I would not rework everything with the re-aligned data, since difference in results was minuscule. See the creation of the trimmed alignment to follow:*
     
-##### Making a second, trimmed alignment for quality control
+##### Making trimmed alignment (quality control)
 I created my original alignment and analyzed without trimming, but then I made a second alignment of the same data that was trimmed, removing columns that only consisted of gaps (see below). This did not change overall topology or support values in a major way.
 ```
 library(ape)
@@ -441,9 +441,10 @@ nodelabels(cex=0.8)
 
 BEAST is a software package that uses MCMC for Bayesian analysis of molecular sequences. It estimates evolutionary parameters. 
 The aligned sequences are put in to BEAUti, which generates the .xml to input in BEAST. 
-BEAST outputs .log and .trees files. Then, .log is loaded in to Tracer, which presents visuals of posterior trace, likelihood, ESS, etc.
+BEAST outputs .log and .trees files. Then, the .log file (beast/beast_BEAUti2_analysis.log) is loaded in to Tracer, which presents visuals of posterior trace, likelihood, ESS, etc.
 
-ADD INTERPRETATION!!
+
+- The figures created in Tracer (posterior and likelihood plots) after uploading the BEAUti2 output show MCMC convergence after the initial calibration period. The effective sample size (ESS) values, however, were low (posterior = 58, likelihood = 53), indicating that the various pol sequences were very similar to one another and the sequences weren't really long enough to generate a reliable result.
 
 ---
 
@@ -467,8 +468,8 @@ Saving matrix as .csv (spreadsheet)
 ```
 write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
 ```
+The created distance matrix is comparing each of the 15 sequences to one another. Lower values indicate more similarity and higher values indicate less. Within each country, the strains have very high similarity. However, between each country, the strains are more variable. 
 
-ADD INTERPRETATION!!!!!
 
 ---
 
