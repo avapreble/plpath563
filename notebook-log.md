@@ -453,6 +453,15 @@ BEAST outputs .log and .trees files. Then, the .log file (beast/beast_BEAUti2_an
 
 - The figures created in Tracer (posterior and likelihood plots) after uploading the BEAUti2 output show MCMC convergence after the initial calibration period. The effective sample size (ESS) values, however, were low (posterior = 58, likelihood = 53), indicating that the various pol sequences were very similar to one another and the sequences weren't really long enough to generate a reliable result.
 
+
+[posterior plot](figures/posterior_tracer_beast.pdf)
+
+
+
+[likelihood plot](figures/likelihood_tracer_beast.pdf)
+
+
+
 ---
 
 ### Distance Matrix
@@ -472,6 +481,9 @@ as.matrix(distmatrix)
 ```
 
 Saving matrix as .csv (spreadsheet)
+
+[matrix here](results/matrix/distmatrix.csv)
+
 ```
 write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
 ```
@@ -480,6 +492,10 @@ write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
 
 ---
 
+
+
+### Result interpretations
+#### Plotting trees with ggtree
 
 
 

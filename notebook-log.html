@@ -780,6 +780,8 @@ were low (posterior = 58, likelihood = 53), indicating that the various
 pol sequences were very similar to one another and the sequences weren’t
 really long enough to generate a reliable result.</li>
 </ul>
+<p><a href="figures/posterior_tracer_beast.pdf">posterior plot</a></p>
+<p><a href="figures/likelihood_tracer_beast.pdf">likelihood plot</a></p>
 <hr />
 </div>
 <div id="distance-matrix" class="section level3">
@@ -793,6 +795,7 @@ really long enough to generate a reliable result.</li>
 distmatrix &lt;- dist.dna(dna, model=&quot;raw&quot;)
 as.matrix(distmatrix)</code></pre>
 <p>Saving matrix as .csv (spreadsheet)</p>
+<p><a href="results/matrix/distmatrix.csv">matrix here</a></p>
 <pre><code>write.csv(as.matrix(distmatrix), file = &quot;results/matrix/distmatrix.csv&quot;)</code></pre>
 <ul>
 <li>The created distance matrix is comparing each of the 15 sequences to
@@ -802,6 +805,12 @@ similarity. However, between each country, the strains are more
 variable.</li>
 </ul>
 <hr />
+</div>
+</div>
+<div id="result-interpretations" class="section level3">
+<h3>Result interpretations</h3>
+<div id="plotting-trees-with-ggtree" class="section level4">
+<h4>Plotting trees with ggtree</h4>
 </div>
 </div>
 </div>
