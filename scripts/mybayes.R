@@ -31,7 +31,7 @@ nodelabels(cex=0.8) #posterior probabilities
 
 # MrBayes with trimmed alignment
 
-# coversion from .fasta to .nex
+# conversion from .fasta to .nex
 mrbayes_trimmed <- read.dna("data/alignment_results/MAFFT_aligned_trimmed.fasta", format = "fasta")
 write.nexus.data(mrbayes_trimmed, file = "data/alignment_results/MAFFT_aligned_trimmed.nex", format= "dna")
 

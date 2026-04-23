@@ -8,35 +8,24 @@ editor_options:
 
 ## **Question and Data**
 
-Regions with different first-line HIV treatments, and variations in the
-emergence of drug resistance
+### ***Do prominent regional HIV-1 subtypes exhibit convergent evolution of drug resistance mutations in the pol gene despite variations in first-line antiretrovirals?***
 
-Do prominent regional HIV-1 subtypes exhibit convergent evolution of
-drug resistance mutations in the pol gene despite variations in
-first-line antiretrovirals?
+#### Regions with different first-line HIV treatments, and variations in the emergence of drug resistance
+
 
 I will use publicly available data of HIV-1 pol sequences from 3
 countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
 of their variation in use of antiretroviral treatments.
 
+---
 
-## **Plan**
+## **Downloading Data**
 
-1)  download necessary/appropriate data from public database (.fasta
-    files)
-2)  clean datasets/quality control
-3)  analyze alignments and compare variation between
-    each region's data
-4)  build tree and make inferences about how treatment resistance is
-    most commonly spread in HIV-1
+The raw data used in this project was obtained from the Los Alamos National Laboratory HIV sequence database
+(<https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html>). 
 
-## **Downloading data**
-
-I downloaded my data from the Los Alamos National Laboratory HIV
-sequence database
-(<https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html>). I input
-the following parameters in to the Sequence Search Interface:
+Sequence Search Interface parameters input:
 
 - Sampling year: 2018 
 - Virus: HIV-1 
@@ -56,11 +45,11 @@ prominent subtype in each region.
 
 - **Thailand (subtype CRF01_AE):** ON903098, ON903078, ON863057, ON863022, ON863108
 
+---
 
-## **Aligning Data MSA** 
+## **MAFFT - aligning data MSA** 
 #### (MAFFT, HW assignment)
 
-### Description:
 *MAFFT is a multiple sequence alignment program that works functions via
 2 main techniques - (1) identification of homologous regions with Fast
 Fourier transform, (2) an efficient, quicker scoring system.*
@@ -75,21 +64,27 @@ related sequences - More reliable guide trees produce more reliable
 results, an inaccurate guide tree can mess with alignment - Fast Fourier
 Transform algorithm not efficient for more distantly related sequences
 
--   I made a combined file of all the downloaded sequences called
-    *combined_HIV2018*
 
+
+3 .fasta files with each country's 5 pol sequences were combined in to a collective .fasta before MAFFT alignment (*combined_HIV2018.fasta*).
+
+
+Running MAFFT in terminal to create alignment file:
 ``` 
-mafft combined_HIV2018.fasta > MAFFT_aligned.fasta   # code ran for running MAFFT (already installed) inside data folder of project
+mafft combined_HIV2018.fasta > MAFFT_aligned.fasta   
+```
+The output was *MAFFT_aligned.fasta*, which was put in:
+
+```
+data/alignment_results
 ```
 
--   This made the file *MAFFT_aligned.fasta* in the data folder of my
-    project, which I put in to a sub folder of alignment results called
-    *alignment_results*
+.
+
+***Quality control note:*** *Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries). Later, I decided to try to trim the data to see if it had any significant effect on the analyses. After assessing IQ-TREE and MrBayes outputs with the trimmed alignment and comparing them to the originals, I concluded I would not rework everything with the re-aligned data, since difference in results was minuscule. See the creation of the trimmed alignment to follow:*
     
-**Quality control note:** Using methods taught in class, I assembled and aligned my data with as much accuracy as possible. I ran MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences (5 random BLAST results from each of the 3 different countries).
-    
-  ## Making a second, trimmed alignment for quality control
-  I created my original alignment and analyzed without trimming, but then I made a second alignment of the same data that was trimmed, removing columns that only consisted of gaps (see below). This did not change overall topology or support values in a major way.
+##### Making a second, trimmed alignment for quality control
+I created my original alignment and analyzed without trimming, but then I made a second alignment of the same data that was trimmed, removing columns that only consisted of gaps (see below). This did not change overall topology or support values in a major way.
 ```
 library(ape)
 
@@ -100,11 +95,12 @@ trim_alignment <- del.colgapsonly(dna)
 write.dna(trim_alignment, file="data/alignment_results/MAFFT_aligned_trimmed.fasta", format="fasta")
 ```
 - Similar to the original, we now have *MAFFT_aligned_trimmed.fasta* in *alignment_results*     
+  
+---  
     
-    
-## **Building simpler trees to start**
+## **Simpler trees**
 
-#### loaded packages:
+#### Loaded R packages:
 ``` 
 library(ape)
 library(adegenet)
@@ -118,6 +114,7 @@ library(phangorn)
 
 **Limitations:** only outputs 1 tree when there could be multiple equally-possible options. Also, the optimization of pairwise genetic distances and the built tree is very algorithmic rather than explicitly based in evolutionary biology. 
 
+#### R packages loaded above
 #### Loading sample data
 
 ``` 
@@ -126,7 +123,7 @@ dna <- fasta2DNAbin(file="data/alignment_results/MAFFT_aligned.fasta")
 
 #### Computation of genetic distances (Tamura and Nei 1993 model)
 
-*(idk if this is correct model to use it was this that we used in class demonstration though, may edit)*
+*(I used this model because it is what we used in class)*
 
 
 ``` 
@@ -134,21 +131,21 @@ D <- dist.dna(dna, model="TN93")
 ```
 
 
-#### getting NJ tree
+#### Getting NJ tree
 
 ``` 
 tre <- nj(D)
 ```
 
 
-#### ladderize
+#### Ladderize
 
 ``` 
 tre <- ladderize(tre)
 ```
 
 
-#### plot tree
+#### Plot tree
 ``` 
 plot(tre, cex=.6)
 title("Simple NJ tree")
@@ -184,7 +181,7 @@ parsimony_tree <- optim.parsimony(starting_tree, dna2)
 ```
 
 #### 
-- **console: final p-score 1037 after 0 nni operations**
+- **console:** *final p-score 1037 after 0 nni operations*
 
 
 #### Root the tree:
@@ -198,7 +195,7 @@ plot(parsimony_tree, cex=0.6)
 title("Parsimony tree")
 ```
 
-
+---
 
 
 # **Maximum Likelihood trees and inference**
@@ -208,8 +205,9 @@ title("Parsimony tree")
 
 #### Input alignment:
 
+```
 data/alignment_results/MAFFT_aligned.fasta
-
+```
 
 #### Verify format command:
 ```
@@ -222,15 +220,16 @@ raxml-ng --check --msa data/alignment_results/MAFFT_aligned.fasta --model GTR+G 
 
 #### Reduced alignment for analysis
 
+```
 results/mafft_check.raxml.reduced.phy
-
+```
 
 #### Build RAxML ML tree command
 
 ```
 raxml-ng --search --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_ml
 ```
-*tree saves as results/mafft_ml.raxml.bestTree*
+*tree saves as* ``` results/mafft_ml.raxml.bestTree```
 
 #### Output: 
 
@@ -247,9 +246,7 @@ raxml-ng --bootstrap --msa results/mafft_check.raxml.reduced.phy --model GTR+G -
 ```
 
 
-#### Bootstrap replicate tree output:
-
-results/mafft_boot.raxml.bootstraps
+#### Bootstrap replicate tree output: ```results/mafft_boot.raxml.bootstraps```
 
 
 
@@ -257,29 +254,28 @@ results/mafft_boot.raxml.bootstraps
 ```
 raxml-ng --support --tree results/mafft_ml.raxml.bestTree --bs-trees results/mafft_boot.raxml.bootstraps --prefix results/mafft_support
 ```
-#### Tree:
-results/mafft_support.raxml.support
+#### Tree: ```results/mafft_support.raxml.support```
 
 
 #### Commands: 
 
-loading packages:
+Loading packages:
 ```
 library(ape)
 ```
 
-loading RAxML tree:
+Loading RAxML tree:
 ```
 tree <- read.tree("results/mafft_support.raxml.support")
 ```
 
-plot tree:
+
+Plot tree:
 ``` 
 plot(tree)
 ```
+---
 
-# 
-# 
 
 ## **IQ-TREE v3.0.1**
 
@@ -309,9 +305,10 @@ IQ-TREE is a software used for phylogenetic inference by maximum likelihood.The 
 
 ### Input alignment:
 
+```
 data/alignment_results/MAFFT_aligned.fasta 
+```
 
-# 
 
 ### Command input
 ```
@@ -330,7 +327,7 @@ Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
 
 
 
-### Re-running iqtree on trimmed alignment for quality control
+### Re-running IQ-TREE on trimmed alignment for quality control
 
 ### Command input
 ```
@@ -403,7 +400,7 @@ sumt
 - confidence values (posterior probabilities)
 
 
-# visualize 
+#### To visualize: 
 ```
 mrbayes_tree <- read.nexus("data/alignment_results/MAFFT_aligned.nex.con.tre") #loading in MB tree 
 plot(mrbayes_tree, cex=0.7)
@@ -430,9 +427,53 @@ sump #summarizes parameter estimates
 sumt #summarizes trees
 ```
 
-# visualize
+#### To visualize:
+```
 mb_trimmed_tree <- read.nexus("data/alignment_results/MAFFT_aligned_trimmed.nex.con.tre")
 mb_trimmed_ladderized <- ladderize(mb_trimmed_tree)
 plot(mb_trimmed_ladderized, cex=0.7)
 nodelabels(cex=0.8)
+```
+
+---
+
+### BEAST and MCMC
+
+BEAST is a software package that uses MCMC for Bayesian analysis of molecular sequences. It estimates evolutionary parameters. 
+The aligned sequences are put in to BEAUti, which generates the .xml to input in BEAST. 
+BEAST outputs .log and .trees files. Then, .log is loaded in to Tracer, which presents visuals of posterior trace, likelihood, ESS, etc.
+
+ADD INTERPRETATION!!
+
+---
+
+### Distance Matrix
+
+#### Pairwise distances
+
+Load R package needed:
+```
+library(ape) 
+```
+
+Creating distance matrix:
+```
+dna <- read.dna("data/alignment_results/MAFFT_aligned.fasta", format="fasta")
+distmatrix <- dist.dna(dna, model="raw")
+as.matrix(distmatrix)
+```
+
+Saving matrix as .csv (spreadsheet)
+```
+write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
+```
+
+ADD INTERPRETATION!!!!!
+
+---
+
+
+
+
+
 

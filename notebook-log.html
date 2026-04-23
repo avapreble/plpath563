@@ -356,34 +356,26 @@ display: none;
 <h1><strong>Reproducible Notebook Log</strong></h1>
 <div id="question-and-data" class="section level2">
 <h2><strong>Question and Data</strong></h2>
-<p>Regions with different first-line HIV treatments, and variations in
-the emergence of drug resistance</p>
-<p>Do prominent regional HIV-1 subtypes exhibit convergent evolution of
-drug resistance mutations in the pol gene despite variations in
-first-line antiretrovirals?</p>
+<div id="do-prominent-regional-hiv-1-subtypes-exhibit-convergent-evolution-of-drug-resistance-mutations-in-the-pol-gene-despite-variations-in-first-line-antiretrovirals" class="section level3">
+<h3><strong><em>Do prominent regional HIV-1 subtypes exhibit convergent
+evolution of drug resistance mutations in the pol gene despite
+variations in first-line antiretrovirals?</em></strong></h3>
+<div id="regions-with-different-first-line-hiv-treatments-and-variations-in-the-emergence-of-drug-resistance" class="section level4">
+<h4>Regions with different first-line HIV treatments, and variations in
+the emergence of drug resistance</h4>
 <p>I will use publicly available data of HIV-1 pol sequences from 3
 countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
 of their variation in use of antiretroviral treatments.</p>
+<hr />
 </div>
-<div id="plan" class="section level2">
-<h2><strong>Plan</strong></h2>
-<ol style="list-style-type: decimal">
-<li>download necessary/appropriate data from public database (.fasta
-files)</li>
-<li>clean datasets/quality control</li>
-<li>analyze alignments and compare variation between each region’s
-data</li>
-<li>build tree and make inferences about how treatment resistance is
-most commonly spread in HIV-1</li>
-</ol>
+</div>
 </div>
 <div id="downloading-data" class="section level2">
-<h2><strong>Downloading data</strong></h2>
-<p>I downloaded my data from the Los Alamos National Laboratory HIV
-sequence database (<a href="https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html" class="uri">https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html</a>).
-I input the following parameters in to the Sequence Search
-Interface:</p>
+<h2><strong>Downloading Data</strong></h2>
+<p>The raw data used in this project was obtained from the Los Alamos
+National Laboratory HIV sequence database (<a href="https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html" class="uri">https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html</a>).</p>
+<p>Sequence Search Interface parameters input:</p>
 <ul>
 <li>Sampling year: 2018</li>
 <li>Virus: HIV-1</li>
@@ -403,14 +395,12 @@ OK649270, OK649287, OK649295</p></li>
 <li><p><strong>Thailand (subtype CRF01_AE):</strong> ON903098, ON903078,
 ON863057, ON863022, ON863108</p></li>
 </ul>
+<hr />
 </div>
-<div id="aligning-data-msa" class="section level2">
-<h2><strong>Aligning Data MSA</strong></h2>
+<div id="mafft---aligning-data-msa" class="section level2">
+<h2><strong>MAFFT - aligning data MSA</strong></h2>
 <div id="mafft-hw-assignment" class="section level4">
 <h4>(MAFFT, HW assignment)</h4>
-</div>
-<div id="description" class="section level3">
-<h3>Description:</h3>
 <p><em>MAFFT is a multiple sequence alignment program that works
 functions via 2 main techniques - (1) identification of homologous
 regions with Fast Fourier transform, (2) an efficient, quicker scoring
@@ -424,25 +414,30 @@ more distantly related sequences - More reliable guide trees produce
 more reliable results, an inaccurate guide tree can mess with alignment
 - Fast Fourier Transform algorithm not efficient for more distantly
 related sequences</p>
-<ul>
-<li>I made a combined file of all the downloaded sequences called
-<em>combined_HIV2018</em></li>
-</ul>
-<pre><code>mafft combined_HIV2018.fasta &gt; MAFFT_aligned.fasta   # code ran for running MAFFT (already installed) inside data folder of project</code></pre>
-<ul>
-<li>This made the file <em>MAFFT_aligned.fasta</em> in the data folder
-of my project, which I put in to a sub folder of alignment results
-called <em>alignment_results</em></li>
-</ul>
-<p><strong>Quality control note:</strong> Using methods taught in class,
-I assembled and aligned my data with as much accuracy as possible. I ran
-MAFFT on my combined file (combined_HIV2018) of all HIV-1 pol sequences
-(5 random BLAST results from each of the 3 different countries).</p>
-<p>## Making a second, trimmed alignment for quality control I created
-my original alignment and analyzed without trimming, but then I made a
-second alignment of the same data that was trimmed, removing columns
-that only consisted of gaps (see below). This did not change overall
-topology or support values in a major way.</p>
+<p>3 .fasta files with each country’s 5 pol sequences were combined in
+to a collective .fasta before MAFFT alignment
+(<em>combined_HIV2018.fasta</em>).</p>
+<p>Running MAFFT in terminal to create alignment file:</p>
+<pre><code>mafft combined_HIV2018.fasta &gt; MAFFT_aligned.fasta   </code></pre>
+<p>The output was <em>MAFFT_aligned.fasta</em>, which was put in:</p>
+<pre><code>data/alignment_results</code></pre>
+<p>.</p>
+<p><strong><em>Quality control note:</em></strong> <em>Using methods
+taught in class, I assembled and aligned my data with as much accuracy
+as possible. I ran MAFFT on my combined file (combined_HIV2018) of all
+HIV-1 pol sequences (5 random BLAST results from each of the 3 different
+countries). Later, I decided to try to trim the data to see if it had
+any significant effect on the analyses. After assessing IQ-TREE and
+MrBayes outputs with the trimmed alignment and comparing them to the
+originals, I concluded I would not rework everything with the re-aligned
+data, since difference in results was minuscule. See the creation of the
+trimmed alignment to follow:</em></p>
+<div id="making-a-second-trimmed-alignment-for-quality-control" class="section level5">
+<h5>Making a second, trimmed alignment for quality control</h5>
+<p>I created my original alignment and analyzed without trimming, but
+then I made a second alignment of the same data that was trimmed,
+removing columns that only consisted of gaps (see below). This did not
+change overall topology or support values in a major way.</p>
 <pre><code>library(ape)
 
 # removing columns with only gaps
@@ -454,12 +449,14 @@ write.dna(trim_alignment, file=&quot;data/alignment_results/MAFFT_aligned_trimme
 <li>Similar to the original, we now have
 <em>MAFFT_aligned_trimmed.fasta</em> in <em>alignment_results</em></li>
 </ul>
+<hr />
 </div>
 </div>
-<div id="building-simpler-trees-to-start" class="section level2">
-<h2><strong>Building simpler trees to start</strong></h2>
-<div id="loaded-packages" class="section level4">
-<h4>loaded packages:</h4>
+</div>
+<div id="simpler-trees" class="section level2">
+<h2><strong>Simpler trees</strong></h2>
+<div id="loaded-r-packages" class="section level4">
+<h4>Loaded R packages:</h4>
 <pre><code>library(ape)
 library(adegenet)
 library(phangorn)</code></pre>
@@ -476,26 +473,28 @@ heterogeneous base frequencies.</p>
 multiple equally-possible options. Also, the optimization of pairwise
 genetic distances and the built tree is very algorithmic rather than
 explicitly based in evolutionary biology.</p>
+<div id="r-packages-loaded-above" class="section level4">
+<h4>R packages loaded above</h4>
+</div>
 <div id="loading-sample-data" class="section level4">
 <h4>Loading sample data</h4>
 <pre><code>dna &lt;- fasta2DNAbin(file=&quot;data/alignment_results/MAFFT_aligned.fasta&quot;)</code></pre>
 </div>
 <div id="computation-of-genetic-distances-tamura-and-nei-1993-model" class="section level4">
 <h4>Computation of genetic distances (Tamura and Nei 1993 model)</h4>
-<p><em>(idk if this is correct model to use it was this that we used in
-class demonstration though, may edit)</em></p>
+<p><em>(I used this model because it is what we used in class)</em></p>
 <pre><code>D &lt;- dist.dna(dna, model=&quot;TN93&quot;)</code></pre>
 </div>
 <div id="getting-nj-tree" class="section level4">
-<h4>getting NJ tree</h4>
+<h4>Getting NJ tree</h4>
 <pre><code>tre &lt;- nj(D)</code></pre>
 </div>
 <div id="ladderize" class="section level4">
-<h4>ladderize</h4>
+<h4>Ladderize</h4>
 <pre><code>tre &lt;- ladderize(tre)</code></pre>
 </div>
 <div id="plot-tree" class="section level4">
-<h4>plot tree</h4>
+<h4>Plot tree</h4>
 <pre><code>plot(tre, cex=.6)
 title(&quot;Simple NJ tree&quot;)</code></pre>
 </div>
@@ -512,7 +511,7 @@ and mutating</p>
 <p><strong>Limitations:</strong> assumes the simplest scenario, which
 doesn’t account for large eveolutionary events well. This model is also
 more simple and computer intensive than some of it’s counterparts.</p>
-<div id="r-packages-loaded-above" class="section level4">
+<div id="r-packages-loaded-above-1" class="section level4">
 <h4>R packages loaded above</h4>
 </div>
 <div id="conversion-of-sample-data-in-to-phangorn-object" class="section level4">
@@ -531,8 +530,8 @@ parsimony(starting_tree, dna2)</code></pre>
 <div id="section" class="section level4">
 <h4></h4>
 <ul>
-<li><strong>console: final p-score 1037 after 0 nni
-operations</strong></li>
+<li><strong>console:</strong> <em>final p-score 1037 after 0 nni
+operations</em></li>
 </ul>
 </div>
 <div id="root-the-tree" class="section level4">
@@ -543,6 +542,7 @@ operations</strong></li>
 <h4>Tree plot</h4>
 <pre><code>plot(parsimony_tree, cex=0.6)
 title(&quot;Parsimony tree&quot;)</code></pre>
+<hr />
 </div>
 </div>
 </div>
@@ -553,7 +553,7 @@ title(&quot;Parsimony tree&quot;)</code></pre>
 <h2><strong>RAxML-NG v1.2.2</strong></h2>
 <div id="input-alignment" class="section level4">
 <h4>Input alignment:</h4>
-<p>data/alignment_results/MAFFT_aligned.fasta</p>
+<pre><code>data/alignment_results/MAFFT_aligned.fasta</code></pre>
 </div>
 <div id="verify-format-command" class="section level4">
 <h4>Verify format command:</h4>
@@ -565,12 +565,13 @@ taxa</em></p>
 </div>
 <div id="reduced-alignment-for-analysis" class="section level4">
 <h4>Reduced alignment for analysis</h4>
-<p>results/mafft_check.raxml.reduced.phy</p>
+<pre><code>results/mafft_check.raxml.reduced.phy</code></pre>
 </div>
 <div id="build-raxml-ml-tree-command" class="section level4">
 <h4>Build RAxML ML tree command</h4>
 <pre><code>raxml-ng --search --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_ml</code></pre>
-<p><em>tree saves as results/mafft_ml.raxml.bestTree</em></p>
+<p><em>tree saves as</em>
+<code>results/mafft_ml.raxml.bestTree</code></p>
 </div>
 <div id="output" class="section level4">
 <h4>Output:</h4>
@@ -587,36 +588,30 @@ taxa</em></p>
 <h4>Bootstrap trees command:</h4>
 <pre><code>raxml-ng --bootstrap --msa results/mafft_check.raxml.reduced.phy --model GTR+G --prefix results/mafft_boot</code></pre>
 </div>
-<div id="bootstrap-replicate-tree-output" class="section level4">
-<h4>Bootstrap replicate tree output:</h4>
-<p>results/mafft_boot.raxml.bootstraps</p>
+<div id="bootstrap-replicate-tree-output-resultsmafft_boot.raxml.bootstraps" class="section level4">
+<h4>Bootstrap replicate tree output:
+<code>results/mafft_boot.raxml.bootstraps</code></h4>
 </div>
 <div id="map-bootstrap-to-best-ml-tree-command" class="section level4">
 <h4>Map bootstrap to best ML tree command:</h4>
 <pre><code>raxml-ng --support --tree results/mafft_ml.raxml.bestTree --bs-trees results/mafft_boot.raxml.bootstraps --prefix results/mafft_support</code></pre>
 </div>
-<div id="tree" class="section level4">
-<h4>Tree:</h4>
-<p>results/mafft_support.raxml.support</p>
+<div id="tree-resultsmafft_support.raxml.support" class="section level4">
+<h4>Tree: <code>results/mafft_support.raxml.support</code></h4>
 </div>
 <div id="commands" class="section level4">
 <h4>Commands:</h4>
-<p>loading packages:</p>
+<p>Loading packages:</p>
 <pre><code>library(ape)</code></pre>
-<p>loading RAxML tree:</p>
+<p>Loading RAxML tree:</p>
 <pre><code>tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></pre>
-<p>plot tree:</p>
+<p>Plot tree:</p>
 <pre><code>plot(tree)</code></pre>
+<hr />
 </div>
-</div>
-<div id="section-2" class="section level1">
-<h1></h1>
-</div>
-<div id="section-3" class="section level1">
-<h1></h1>
 <div id="iq-tree-v3.0.1" class="section level2">
 <h2><strong>IQ-TREE v3.0.1</strong></h2>
-<div id="description-1" class="section level3">
+<div id="description" class="section level3">
 <h3>Description:</h3>
 <p>IQ-TREE is a software used for phylogenetic inference by maximum
 likelihood.The software package includes model selection through
@@ -641,12 +636,8 @@ adjustment</p></li>
 </div>
 <div id="input-alignment-1" class="section level3">
 <h3>Input alignment:</h3>
-<p>data/alignment_results/MAFFT_aligned.fasta</p>
+<pre><code>data/alignment_results/MAFFT_aligned.fasta </code></pre>
 </div>
-</div>
-</div>
-<div id="section-4" class="section level1">
-<h1></h1>
 <div id="command-input" class="section level3">
 <h3>Command input</h3>
 <pre><code>~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000</code></pre>
@@ -664,8 +655,8 @@ CPU)</p></li>
 TIM3+F+I</p></li>
 </ul>
 </div>
-<div id="re-running-iqtree-on-trimmed-alignment-for-quality-control" class="section level3">
-<h3>Re-running iqtree on trimmed alignment for quality control</h3>
+<div id="re-running-iq-tree-on-trimmed-alignment-for-quality-control" class="section level3">
+<h3>Re-running IQ-TREE on trimmed alignment for quality control</h3>
 </div>
 <div id="command-input-1" class="section level3">
 <h3>Command input</h3>
@@ -682,9 +673,10 @@ read.tree(“data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile”)</p>
 <p>#ladderize new_iqtree_ladderize &lt;- ladderize(new_iqtree)</p>
 <p>plot(new_iqtree_ladderize, cex=0.5) nodelabels(cex=0.7)</p>
 </div>
+</div>
 <div id="mrbayes---bayesian-inference" class="section level2">
 <h2>MrBayes - Bayesian Inference</h2>
-<div id="description-2" class="section level3">
+<div id="description-1" class="section level3">
 <h3>Description:</h3>
 <p>MrBayes is a software used for Bayesian inference modeling. Bayesian
 inference begins with a prior probability that is continually updated
@@ -732,14 +724,13 @@ sumt </code></pre>
 <li><p>confidence values (posterior probabilities)</p></li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div id="visualize-1" class="section level1">
-<h1>visualize</h1>
+<div id="to-visualize" class="section level4">
+<h4>To visualize:</h4>
 <pre><code>mrbayes_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;) #loading in MB tree 
 plot(mrbayes_tree, cex=0.7)
 nodelabels(cex=0.8) #posterior probabilities</code></pre>
+</div>
+</div>
 <div id="re-running-mrbayes-on-trimmed-alignment-for-quality-control" class="section level3">
 <h3>Re-running MrBayes on trimmed alignment for quality control</h3>
 <div id="converting-trimmed-.fasta-to-.nex" class="section level4">
@@ -759,14 +750,43 @@ sump #summarizes parameter estimates
 
 sumt #summarizes trees</code></pre>
 </div>
-</div>
-</div>
-<div id="visualize-2" class="section level1">
-<h1>visualize</h1>
-<p>mb_trimmed_tree &lt;-
-read.nexus(“data/alignment_results/MAFFT_aligned_trimmed.nex.con.tre”)
+<div id="to-visualize-1" class="section level4">
+<h4>To visualize:</h4>
+<pre><code>mb_trimmed_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned_trimmed.nex.con.tre&quot;)
 mb_trimmed_ladderized &lt;- ladderize(mb_trimmed_tree)
-plot(mb_trimmed_ladderized, cex=0.7) nodelabels(cex=0.8)</p>
+plot(mb_trimmed_ladderized, cex=0.7)
+nodelabels(cex=0.8)</code></pre>
+<hr />
+</div>
+</div>
+<div id="beast-and-mcmc" class="section level3">
+<h3>BEAST and MCMC</h3>
+<p>BEAST is a software package that uses MCMC for Bayesian analysis of
+molecular sequences. It estimates evolutionary parameters. The aligned
+sequences are put in to BEAUti, which generates the .xml to input in
+BEAST. BEAST outputs .log and .trees files. Then, .log is loaded in to
+Tracer, which presents visuals of posterior trace, likelihood, ESS,
+etc.</p>
+<p>ADD INTERPRETATION!!</p>
+<hr />
+</div>
+<div id="distance-matrix" class="section level3">
+<h3>Distance Matrix</h3>
+<div id="pairwise-distances" class="section level4">
+<h4>Pairwise distances</h4>
+<p>Load R package needed:</p>
+<pre><code>library(ape) </code></pre>
+<p>Creating distance matrix:</p>
+<pre><code>dna &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned.fasta&quot;, format=&quot;fasta&quot;)
+distmatrix &lt;- dist.dna(dna, model=&quot;raw&quot;)
+as.matrix(distmatrix)</code></pre>
+<p>Saving matrix as .csv (spreadsheet)</p>
+<pre><code>write.csv(as.matrix(distmatrix), file = &quot;results/matrix/distmatrix.csv&quot;)</code></pre>
+<p>ADD INTERPRETATION!!!!!</p>
+<hr />
+</div>
+</div>
+</div>
 </div>
 
 
