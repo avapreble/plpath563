@@ -632,7 +632,7 @@ plot(tree)</code></pre>
 </div>
 <div id="visualize-tree-with-ggtree" class="section level4">
 <h4>Visualize tree with ggtree:</h4>
-<pre class="r"><code># loading packages
+<pre class="r"><code>#loading packages
 library(ggtree)    
 library(ape)         
 library(ggplot2)
@@ -645,11 +645,11 @@ raxmltree &lt;- ladderize(raxmltree)
 
 
 # tip labels, colors, formating
-colorRegionsraxml &lt;- data.frame(label = iqtree$tip.label)
-colorRegionsraxml$Region &lt;- ifelse(grepl(&quot;C.MZ&quot;, colorRegions$label), &quot;Mozambique&quot;, 
-                              ifelse(grepl(&quot;TH&quot;, colorRegions$label), &quot;Thailand&quot;, &quot;USA&quot;))
+colorRegionsraxml &lt;- data.frame(label = raxmltree$tip.label)
+colorRegionsraxml$Region &lt;- ifelse(grepl(&quot;C.MZ&quot;, colorRegionsraxml$label), &quot;Mozambique&quot;, 
+                              ifelse(grepl(&quot;TH&quot;, colorRegionsraxml$label), &quot;Thailand&quot;, &quot;USA&quot;))
 
-colorRegionsraxml$new_label &lt;- ave(colorRegions$Region, colorRegions$Region,
+colorRegionsraxml$new_label &lt;- ave(colorRegionsraxml$Region, colorRegionsraxml$Region,
                               FUN = function(x) paste0(x, &quot;_&quot;, seq_along(x)))
 
 #plot tree

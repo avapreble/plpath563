@@ -13,11 +13,11 @@ raxmltree <- ladderize(raxmltree)
 
 
 # tip labels, colors, formating
-colorRegionsraxml <- data.frame(label = iqtree$tip.label)
-colorRegionsraxml$Region <- ifelse(grepl("C.MZ", colorRegions$label), "Mozambique", 
-                              ifelse(grepl("TH", colorRegions$label), "Thailand", "USA"))
+colorRegionsraxml <- data.frame(label = raxmltree$tip.label)
+colorRegionsraxml$Region <- ifelse(grepl("C.MZ", colorRegionsraxml$label), "Mozambique", 
+                              ifelse(grepl("TH", colorRegionsraxml$label), "Thailand", "USA"))
 
-colorRegionsraxml$new_label <- ave(colorRegions$Region, colorRegions$Region,
+colorRegionsraxml$new_label <- ave(colorRegionsraxml$Region, colorRegionsraxml$Region,
                               FUN = function(x) paste0(x, "_", seq_along(x)))
 
 #plot tree
