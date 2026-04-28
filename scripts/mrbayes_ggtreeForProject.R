@@ -39,8 +39,9 @@ mbTreePlot <- ggtree(MBtreex) %<+% colorRegions +
   
   theme_tree2() + 
   theme(legend.position = "left", text = element_text(size = 10)) + 
-  guides(color = guide_legend(override.aes = list(label = "~", size = 10))) 
+  guides(color = guide_legend(override.aes = list(label = "•", size = 10))) 
 
+mbTreePlot
 
 # save image
 ggsave("figures/mbtree1.png", plot = mbTreePlot, width = 8, height = 6, dpi = 300)
