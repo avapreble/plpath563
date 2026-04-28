@@ -434,12 +434,12 @@ data, since difference in results was minuscule. See the creation of the
 trimmed alignment to follow:</em></p>
 <div id="making-trimmed-alignment-quality-control" class="section level5">
 <h5>Making trimmed alignment (quality control)</h5>
-<p><a href="script/alignmentQC.R">R script here</a> I created my
+<p><a href="script/alignmentQC.R">R scripts here</a> I created my
 original alignment and analyzed without trimming, but then I made a
 second alignment of the same data that was trimmed, removing columns
 that only consisted of gaps (see below). This did not change overall
 topology or support values in a major way.</p>
-<pre><code>library(ape)
+<pre class="r"><code>library(ape)
 
 # removing columns with only gaps
 trim_alignment &lt;- del.colgapsonly(dna)
@@ -459,7 +459,7 @@ write.dna(trim_alignment, file=&quot;data/alignment_results/MAFFT_aligned_trimme
 <p><a href="scripts/DistanceAndParsimony.R">R scripts here</a></p>
 <div id="loaded-r-packages" class="section level4">
 <h4>Loaded R packages:</h4>
-<pre><code>library(ape)
+<pre class="r"><code>library(ape)
 library(adegenet)
 library(phangorn)</code></pre>
 </div>
@@ -475,31 +475,39 @@ heterogeneous base frequencies.</p>
 multiple equally-possible options. Also, the optimization of pairwise
 genetic distances and the built tree is very algorithmic rather than
 explicitly based in evolutionary biology.</p>
-<div id="r-packages-loaded-above" class="section level4">
-<h4>R packages loaded above</h4>
-</div>
-<div id="loading-sample-data" class="section level4">
-<h4>Loading sample data</h4>
-<pre><code>dna &lt;- fasta2DNAbin(file=&quot;data/alignment_results/MAFFT_aligned.fasta&quot;)</code></pre>
-</div>
-<div id="computation-of-genetic-distances-tamura-and-nei-1993-model" class="section level4">
-<h4>Computation of genetic distances (Tamura and Nei 1993 model)</h4>
-<p><em>(I used this model because it is what we used in class)</em></p>
-<pre><code>D &lt;- dist.dna(dna, model=&quot;TN93&quot;)</code></pre>
-</div>
-<div id="getting-nj-tree" class="section level4">
-<h4>Getting NJ tree</h4>
-<pre><code>tre &lt;- nj(D)</code></pre>
-</div>
-<div id="ladderize" class="section level4">
-<h4>Ladderize</h4>
-<pre><code>tre &lt;- ladderize(tre)</code></pre>
-</div>
-<div id="plot-tree" class="section level4">
-<h4>Plot tree</h4>
-<pre><code>plot(tre, cex=.6)
+<pre class="r"><code># R packages loaded above
+
+
+# Loading sample data
+
+
+dna &lt;- fasta2DNAbin(file=&quot;data/alignment_results/MAFFT_aligned.fasta&quot;)
+
+# Computation of genetic distances (Tamura and Nei 1993 model)
+
+# (I used this model because it is what we used in class)
+
+
+D &lt;- dist.dna(dna, model=&quot;TN93&quot;)
+
+
+# Getting NJ tree
+
+
+tre &lt;- nj(D)
+
+
+# Ladderize
+
+
+tre &lt;- ladderize(tre)
+
+
+# Plot tree
+
+
+plot(tre, cex=.6)
 title(&quot;Simple NJ tree&quot;)</code></pre>
-</div>
 </div>
 <div id="parsimony-based-tree" class="section level3">
 <h3>Parsimony-based tree</h3>
@@ -513,39 +521,40 @@ and mutating</p>
 <p><strong>Limitations:</strong> assumes the simplest scenario, which
 doesn’t account for large eveolutionary events well. This model is also
 more simple and computer intensive than some of it’s counterparts.</p>
-<div id="r-packages-loaded-above-1" class="section level4">
-<h4>R packages loaded above</h4>
-</div>
-<div id="conversion-of-sample-data-in-to-phangorn-object" class="section level4">
-<h4>Conversion of sample data in to phangorn object</h4>
-<pre><code>dna2 &lt;- as.phyDat(dna)</code></pre>
-</div>
-<div id="starting-tree" class="section level4">
-<h4>Starting tree</h4>
-<pre><code>starting_tree &lt;- nj(dist.dna(dna,model=&quot;raw&quot;))
-parsimony(starting_tree, dna2)</code></pre>
-</div>
-<div id="searching-for-tree-with-max.-parsimony" class="section level4">
-<h4>Searching for tree with max. parsimony</h4>
-<pre><code>parsimony_tree &lt;- optim.parsimony(starting_tree, dna2)</code></pre>
-</div>
-<div id="section" class="section level4">
-<h4></h4>
-<ul>
-<li><strong>console:</strong> <em>final p-score 1037 after 0 nni
-operations</em></li>
-</ul>
-</div>
-<div id="root-the-tree" class="section level4">
-<h4>Root the tree:</h4>
-<pre><code>rtre = root(parsimony_tree, node = 19)</code></pre>
-</div>
-<div id="tree-plot" class="section level4">
-<h4>Tree plot</h4>
-<pre><code>plot(parsimony_tree, cex=0.6)
+<pre class="r"><code>#### R packages loaded above
+
+# Conversion of sample data in to phangorn object
+
+
+dna2 &lt;- as.phyDat(dna)
+
+
+# Starting tree
+
+
+starting_tree &lt;- nj(dist.dna(dna,model=&quot;raw&quot;))
+parsimony(starting_tree, dna2)
+
+
+# Searching for tree with max. parsimony
+
+
+parsimony_tree &lt;- optim.parsimony(starting_tree, dna2)
+
+# console: *final p-score 1037 after 0 nni operations*
+
+
+# Root the tree:
+
+
+rtre = root(parsimony_tree, node = 19)
+
+# Tree plot
+
+
+plot(parsimony_tree, cex=0.6)
 title(&quot;Parsimony tree&quot;)</code></pre>
 <hr />
-</div>
 </div>
 </div>
 </div>
@@ -563,8 +572,8 @@ title(&quot;Parsimony tree&quot;)</code></pre>
 <pre><code>raxml-ng --check --msa data/alignment_results/MAFFT_aligned.fasta --model GTR+G --prefix results/mafft_check</code></pre>
 <p><em>RAxML detected two identical sequences, so it reduced the
 alignment for computational purposes (C.MZ.2018.S04.OK649268 and
-C.MZ.2018.S06.OK649270)</em> <em>Alignment has 3094 sites and 15
-taxa</em></p>
+C.MZ.2018.S06.OK649270)</em></p>
+<p><em>Alignment has 3094 sites and 15 taxa</em></p>
 </div>
 <div id="reduced-alignment-for-analysis" class="section level4">
 <h4>Reduced alignment for analysis</h4>
@@ -585,7 +594,7 @@ taxa</em></p>
 </div>
 </div>
 </div>
-<div id="section-1" class="section level1">
+<div id="section" class="section level1">
 <h1></h1>
 <div id="bootstrap-trees-command" class="section level4">
 <h4>Bootstrap trees command:</h4>
@@ -604,14 +613,26 @@ taxa</em></p>
 </div>
 <div id="commands" class="section level4">
 <h4>Commands:</h4>
-<p>Loading packages:</p>
-<pre><code>library(ape)</code></pre>
-<p>Loading RAxML tree:</p>
-<pre><code>tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></pre>
-<p>Plot tree:</p>
-<pre><code>plot(tree)</code></pre>
-<p>Visualize tree with ggtree:</p>
-<pre><code>#loading packages
+<pre class="r"><code># Loading packages:
+
+
+library(ape)
+
+
+# Loading RAxML tree:
+
+
+tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)
+
+
+# Plot tree:
+
+
+plot(tree)</code></pre>
+</div>
+<div id="visualize-tree-with-ggtree" class="section level4">
+<h4>Visualize tree with ggtree:</h4>
+<pre class="r"><code># loading packages
 library(ggtree)    
 library(ape)         
 library(ggplot2)
@@ -674,17 +695,16 @@ directions</p></li>
 <li><p>weak phylogenetic signals within a dataset may require parameter
 adjustment</p></li>
 </ul>
-</div>
-<div id="input-alignment-1" class="section level3">
-<h3>Input alignment:</h3>
+<div id="input-alignment-1" class="section level4">
+<h4>Input alignment:</h4>
 <pre><code>data/alignment_results/MAFFT_aligned.fasta </code></pre>
 </div>
-<div id="command-input" class="section level3">
-<h3>Command input</h3>
+<div id="command-input" class="section level4">
+<h4>Command input:</h4>
 <pre><code>~/Documents/software/iqtree-3.0.1-macOS/bin/iqtree3 -s data/alignment_results/MAFFT_aligned.fasta -m MFP -B 1000</code></pre>
 </div>
-<div id="output-1" class="section level3">
-<h3>Output</h3>
+<div id="output-1" class="section level4">
+<h4>Output:</h4>
 <p><strong>MAFFT_aligned.fasta.log</strong></p>
 <ul>
 <li><p>15 sequences, 3094 sites</p></li>
@@ -695,8 +715,10 @@ CPU)</p></li>
 <li><p>best-fit model (Bayesian Information Criterion):
 TIM3+F+I</p></li>
 </ul>
-<p>Visualize with ggtree:</p>
-<pre><code>library(ggtree)    
+</div>
+<div id="visualize-with-ggtree" class="section level4">
+<h4>Visualize with ggtree:</h4>
+<pre class="r"><code>library(ggtree)    
 library(ape)         
 library(ggplot2)
 library(treeio)
@@ -728,19 +750,20 @@ iqtreePlotx
 # save image
 ggsave(&quot;figures/iqtree1.png&quot;, plot = iqtreePlotx, width = 8, height = 6, dpi = 300)</code></pre>
 </div>
+</div>
 <div id="re-running-iq-tree-on-trimmed-alignment-for-quality-control" class="section level3">
 <h3>Re-running IQ-TREE on trimmed alignment for quality control</h3>
-</div>
-<div id="command-input-1" class="section level3">
-<h3>Command input</h3>
+<div id="command-input-1" class="section level4">
+<h4>Command input:</h4>
 <pre><code>iqtree3 -s data/alignment_results/MAFFT_aligned_trimmed.fasta -m MFP -B 1000</code></pre>
 </div>
+</div>
 <div id="output-2" class="section level3">
-<h3>Output</h3>
+<h3>Output:</h3>
 <p><strong>MAFFT_aligned_trimmed.fasta.log</strong></p>
 <div id="visualize" class="section level4">
-<h4>Visualize</h4>
-<pre><code>#making tree with improved alignment
+<h4>Visualize:</h4>
+<pre class="r"><code># making tree with improved alignment
 new_iqtree &lt;- read.tree(&quot;data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile&quot;) 
 
 #ladderize
@@ -772,17 +795,15 @@ Ronquist)</p></li>
 <li><p>dependent on alignment quality</p></li>
 <li><p>dependent on correctness of model</p></li>
 </ul>
-</div>
-<div id="commands-1" class="section level3">
-<h3>Commands</h3>
-<div id="first-converting-.fasta-to-.nex" class="section level4">
-<h4>First, converting .fasta to .nex</h4>
-<pre><code>library(ape)
+<div id="commands-1" class="section level4">
+<h4>Commands:</h4>
+<pre class="r"><code># First, converting .fasta to .nex
+library(ape)
 dna &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned.fasta&quot;, format = &quot;fasta&quot;)
 write.nexus.data(dna, file = &quot;data/alignment_results/MAFFT_aligned.nex&quot;, format= &quot;dna&quot;)</code></pre>
 </div>
 <div id="running-mrbayes" class="section level4">
-<h4>Running MrBayes</h4>
+<h4>Running MrBayes:</h4>
 <pre><code>mb
 
 MrBayes &gt; execute data/alignment_results/MAFFT_aligned.nex
@@ -796,7 +817,7 @@ sump
 sumt </code></pre>
 </div>
 <div id="output-3" class="section level4">
-<h4>Output</h4>
+<h4>Output:</h4>
 <ul>
 <li><p>summarization of all sample trees to one summary tree</p></li>
 <li><p>confidence values (posterior probabilities)</p></li>
@@ -804,13 +825,13 @@ sumt </code></pre>
 </div>
 <div id="to-visualize" class="section level4">
 <h4>To visualize:</h4>
-<pre><code>mrbayes_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;) #loading in MB tree 
+<pre class="r"><code>mrbayes_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;) #loading in MB tree 
 plot(mrbayes_tree, cex=0.7)
 nodelabels(cex=0.8) #posterior probabilities</code></pre>
 </div>
 <div id="visualizing-with-ggtree" class="section level4">
 <h4>Visualizing with ggtree:</h4>
-<pre><code># load packages
+<pre class="r"><code># load packages
 library(ggtree)    
 library(ape)         
 library(ggplot2)
@@ -860,12 +881,12 @@ ggsave(&quot;figures/mbtree1.png&quot;, plot = mbTreePlot, width = 8, height = 6
 <div id="re-running-mrbayes-on-trimmed-alignment-for-quality-control" class="section level3">
 <h3>Re-running MrBayes on trimmed alignment for quality control</h3>
 <div id="converting-trimmed-.fasta-to-.nex" class="section level4">
-<h4>Converting trimmed .fasta to .nex</h4>
+<h4>Converting trimmed .fasta to .nex:</h4>
 <pre><code>mrbayes_trimmed &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned_trimmed.fasta&quot;, format = &quot;fasta&quot;)
 write.nexus.data(mrbayes_trimmed, file = &quot;data/alignment_results/MAFFT_aligned_trimmed.nex&quot;, format= &quot;dna&quot;)</code></pre>
 </div>
 <div id="running-mrbayes-on-trimmed-alignment" class="section level4">
-<h4>Running MrBayes on trimmed alignment</h4>
+<h4>Running MrBayes on trimmed alignment:</h4>
 <pre><code>mb
 
 MrBayes &gt; execute data/alignment_results/MAFFT_aligned_trimmed.nex
@@ -909,15 +930,26 @@ really long enough to generate a reliable result.</li>
 <h3>Distance Matrix</h3>
 <div id="pairwise-distances" class="section level4">
 <h4>Pairwise distances</h4>
-<p>Load R package needed:</p>
-<pre><code>library(ape) </code></pre>
-<p>Creating distance matrix:</p>
-<pre><code>dna &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned.fasta&quot;, format=&quot;fasta&quot;)
+<pre class="r"><code># Load R package needed:
+
+         
+library(ape) 
+
+
+# Creating distance matrix:
+
+dna &lt;- read.dna(&quot;data/alignment_results/MAFFT_aligned.fasta&quot;, format=&quot;fasta&quot;)
 distmatrix &lt;- dist.dna(dna, model=&quot;raw&quot;)
-as.matrix(distmatrix)</code></pre>
-<p>Saving matrix as .csv (spreadsheet)</p>
+as.matrix(distmatrix)
+
+
+Saving matrix as .csv (spreadsheet)
+
+
+
+        
+write.csv(as.matrix(distmatrix), file = &quot;results/matrix/distmatrix.csv&quot;)</code></pre>
 <p><a href="results/matrix/distmatrix.csv">matrix here</a></p>
-<pre><code>write.csv(as.matrix(distmatrix), file = &quot;results/matrix/distmatrix.csv&quot;)</code></pre>
 <ul>
 <li>The created distance matrix is comparing each of the 15 sequences to
 one another. Lower values indicate more similarity and higher values
