@@ -278,6 +278,46 @@ Plot tree:
 ``` 
 plot(tree)
 ```
+
+Visualize tree with ggtree:
+```
+#loading packages
+library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+
+# loading RAxML tree
+raxmltree <- read.tree("results/mafft_support.raxml.support")
+raxmltree <- ladderize(raxmltree)
+
+
+# tip labels, colors, formating
+colorRegionsraxml <- data.frame(label = iqtree$tip.label)
+colorRegionsraxml$Region <- ifelse(grepl("C.MZ", colorRegions$label), "Mozambique", 
+                              ifelse(grepl("TH", colorRegions$label), "Thailand", "USA"))
+
+colorRegionsraxml$new_label <- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, "_", seq_along(x)))
+
+#plot tree
+raxmltreeplot <- ggtree(raxmltree) %<+% colorRegionsraxml + 
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) +
+  xlim(0, max(ggtree(raxmltree) $data$x) * 1.4) +
+  geom_text2(aes(label = label, subset = !isTip), 
+           size = 2.5, hjust = -2.5) 
+
+
+raxmltreex <- raxmltreeplot + 
+  theme_tree2() + 
+  theme(legend.position = "left", text = element_text(size = 10)) + guides(color = guide_legend(override.aes = list(label = "•", size = 10))) 
+
+raxmltreex
+
+# save image
+ggsave("figures/raxmltree1.png", plot = raxmltreex, width = 8, height = 6, dpi = 300)
+```
 ---
 
 
@@ -330,6 +370,41 @@ Checking for duplicate sequences: done in 6.29425e-05 secs using 66.73% CPU)
 
 - best-fit model (Bayesian Information Criterion): TIM3+F+I
 
+Visualize with ggtree:
+```
+library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+# load tree
+iqtree <- read.tree("data/alignment_results/MAFFT_aligned.fasta.treefile") 
+
+
+# tip labels, colors, formating
+colorRegions <- data.frame(label = iqtree$tip.label)
+colorRegions$Region <- ifelse(grepl("C.MZ", colorRegions$label), "Mozambique", 
+                              ifelse(grepl("TH", colorRegions$label), "Thailand", "USA"))
+
+colorRegions$new_label <- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, "_", seq_along(x)))
+
+iqtreePlot <- ggtree(iqtree) %<+% colorRegions +
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) +
+  geom_nodelab(aes(label = label), size = 2, hjust = -0.5, vjust = -0.3) +
+  xlim(0, max(ggtree(iqtree)$data$x) * 1.4)
+
+
+iqtreePlotx <- iqtreePlot + theme_tree2() + 
+  theme(legend.position = "left", text = element_text(size = 10)) + 
+  guides(color = guide_legend(override.aes = list(label = "•", size = 10))) 
+
+iqtreePlotx
+
+# save image
+ggsave("figures/iqtree1.png", plot = iqtreePlotx, width = 8, height = 6, dpi = 300)
+```
+
 
 
 ### Re-running IQ-TREE on trimmed alignment for quality control
@@ -342,7 +417,9 @@ iqtree3 -s data/alignment_results/MAFFT_aligned_trimmed.fasta -m MFP -B 1000
 **MAFFT_aligned_trimmed.fasta.log**
 
 
-### Visualize 
+#### Visualize 
+
+```
 #making tree with improved alignment
 new_iqtree <- read.tree("data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile") 
 
@@ -351,6 +428,7 @@ new_iqtree_ladderize <- ladderize(new_iqtree)
 
 plot(new_iqtree_ladderize, cex=0.5)
 nodelabels(cex=0.7)
+```
 
 
 
@@ -412,6 +490,55 @@ sumt
 mrbayes_tree <- read.nexus("data/alignment_results/MAFFT_aligned.nex.con.tre") #loading in MB tree 
 plot(mrbayes_tree, cex=0.7)
 nodelabels(cex=0.8) #posterior probabilities
+```
+
+#### Visualizing with ggtree:
+```
+# load packages
+library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+
+
+# MrBayes - read in tree
+MBtree <- read.nexus("data/alignment_results/MAFFT_aligned.nex.con.tre")
+MBtreex <- read.mrbayes("data/alignment_results/MAFFT_aligned.nex.con.tre")
+
+# base tree
+plot(MBtree)
+nodelabels()
+
+# tip labels
+colorRegions <- data.frame(label = MBtree$tip.label)
+colorRegions$Region <- ifelse(grepl("C.MZ", colorRegions$label), "Mozambique", 
+                              ifelse(grepl("TH", colorRegions$label), "Thailand", "USA"))
+
+colorRegions$new_label <- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, "_", seq_along(x)))
+
+# aesthetics
+
+mbTreePlot <- ggtree(MBtreex) + geom_tiplab()
+mbTreePlot <- ggtree(MBtreex) %<+% colorRegions + 
+  
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) + 
+  
+  geom_text2(aes(label = sprintf("%.2f", as.numeric(prob)), subset = !isTip), 
+             size = 2.5, hjust = -2.5) +
+  
+  xlim(0, max(ggtree(MBtreex)$data$x) * 1.3) + 
+  
+  
+  theme_tree2() + 
+  theme(legend.position = "left", text = element_text(size = 10)) + 
+  guides(color = guide_legend(override.aes = list(label = "•", size = 10))) 
+
+mbTreePlot
+
+# save image
+ggsave("figures/mbtree1.png", plot = mbTreePlot, width = 8, height = 6, dpi = 300)
 ```
 
 ### Re-running MrBayes on trimmed alignment for quality control
@@ -496,6 +623,8 @@ write.csv(as.matrix(distmatrix), file = "results/matrix/distmatrix.csv")
 
 ### Result interpretations
 #### Plotting trees with ggtree
+
+- ggtree is an R package for visualizing phylogenetic trees and other relevant data in a more aesthetic, clean format than just using plot(tree).
 
 
 

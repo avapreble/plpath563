@@ -610,6 +610,43 @@ taxa</em></p>
 <pre><code>tree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)</code></pre>
 <p>Plot tree:</p>
 <pre><code>plot(tree)</code></pre>
+<p>Visualize tree with ggtree:</p>
+<pre><code>#loading packages
+library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+
+# loading RAxML tree
+raxmltree &lt;- read.tree(&quot;results/mafft_support.raxml.support&quot;)
+raxmltree &lt;- ladderize(raxmltree)
+
+
+# tip labels, colors, formating
+colorRegionsraxml &lt;- data.frame(label = iqtree$tip.label)
+colorRegionsraxml$Region &lt;- ifelse(grepl(&quot;C.MZ&quot;, colorRegions$label), &quot;Mozambique&quot;, 
+                              ifelse(grepl(&quot;TH&quot;, colorRegions$label), &quot;Thailand&quot;, &quot;USA&quot;))
+
+colorRegionsraxml$new_label &lt;- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, &quot;_&quot;, seq_along(x)))
+
+#plot tree
+raxmltreeplot &lt;- ggtree(raxmltree) %&lt;+% colorRegionsraxml + 
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) +
+  xlim(0, max(ggtree(raxmltree) $data$x) * 1.4) +
+  geom_text2(aes(label = label, subset = !isTip), 
+           size = 2.5, hjust = -2.5) 
+
+
+raxmltreex &lt;- raxmltreeplot + 
+  theme_tree2() + 
+  theme(legend.position = &quot;left&quot;, text = element_text(size = 10)) + guides(color = guide_legend(override.aes = list(label = &quot;•&quot;, size = 10))) 
+
+raxmltreex
+
+# save image
+ggsave(&quot;figures/raxmltree1.png&quot;, plot = raxmltreex, width = 8, height = 6, dpi = 300)</code></pre>
 <hr />
 </div>
 <div id="iq-tree-v3.0.1" class="section level2">
@@ -658,6 +695,38 @@ CPU)</p></li>
 <li><p>best-fit model (Bayesian Information Criterion):
 TIM3+F+I</p></li>
 </ul>
+<p>Visualize with ggtree:</p>
+<pre><code>library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+# load tree
+iqtree &lt;- read.tree(&quot;data/alignment_results/MAFFT_aligned.fasta.treefile&quot;) 
+
+
+# tip labels, colors, formating
+colorRegions &lt;- data.frame(label = iqtree$tip.label)
+colorRegions$Region &lt;- ifelse(grepl(&quot;C.MZ&quot;, colorRegions$label), &quot;Mozambique&quot;, 
+                              ifelse(grepl(&quot;TH&quot;, colorRegions$label), &quot;Thailand&quot;, &quot;USA&quot;))
+
+colorRegions$new_label &lt;- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, &quot;_&quot;, seq_along(x)))
+
+iqtreePlot &lt;- ggtree(iqtree) %&lt;+% colorRegions +
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) +
+  geom_nodelab(aes(label = label), size = 2, hjust = -0.5, vjust = -0.3) +
+  xlim(0, max(ggtree(iqtree)$data$x) * 1.4)
+
+
+iqtreePlotx &lt;- iqtreePlot + theme_tree2() + 
+  theme(legend.position = &quot;left&quot;, text = element_text(size = 10)) + 
+  guides(color = guide_legend(override.aes = list(label = &quot;•&quot;, size = 10))) 
+
+iqtreePlotx
+
+# save image
+ggsave(&quot;figures/iqtree1.png&quot;, plot = iqtreePlotx, width = 8, height = 6, dpi = 300)</code></pre>
 </div>
 <div id="re-running-iq-tree-on-trimmed-alignment-for-quality-control" class="section level3">
 <h3>Re-running IQ-TREE on trimmed alignment for quality control</h3>
@@ -669,13 +738,17 @@ TIM3+F+I</p></li>
 <div id="output-2" class="section level3">
 <h3>Output</h3>
 <p><strong>MAFFT_aligned_trimmed.fasta.log</strong></p>
+<div id="visualize" class="section level4">
+<h4>Visualize</h4>
+<pre><code>#making tree with improved alignment
+new_iqtree &lt;- read.tree(&quot;data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile&quot;) 
+
+#ladderize
+new_iqtree_ladderize &lt;- ladderize(new_iqtree)
+
+plot(new_iqtree_ladderize, cex=0.5)
+nodelabels(cex=0.7)</code></pre>
 </div>
-<div id="visualize" class="section level3">
-<h3>Visualize</h3>
-<p>#making tree with improved alignment new_iqtree &lt;-
-read.tree(“data/alignment_results/MAFFT_aligned_trimmed.fasta.treefile”)</p>
-<p>#ladderize new_iqtree_ladderize &lt;- ladderize(new_iqtree)</p>
-<p>plot(new_iqtree_ladderize, cex=0.5) nodelabels(cex=0.7)</p>
 </div>
 </div>
 <div id="mrbayes---bayesian-inference" class="section level2">
@@ -734,6 +807,54 @@ sumt </code></pre>
 <pre><code>mrbayes_tree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;) #loading in MB tree 
 plot(mrbayes_tree, cex=0.7)
 nodelabels(cex=0.8) #posterior probabilities</code></pre>
+</div>
+<div id="visualizing-with-ggtree" class="section level4">
+<h4>Visualizing with ggtree:</h4>
+<pre><code># load packages
+library(ggtree)    
+library(ape)         
+library(ggplot2)
+library(treeio)
+
+
+
+# MrBayes - read in tree
+MBtree &lt;- read.nexus(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;)
+MBtreex &lt;- read.mrbayes(&quot;data/alignment_results/MAFFT_aligned.nex.con.tre&quot;)
+
+# base tree
+plot(MBtree)
+nodelabels()
+
+# tip labels
+colorRegions &lt;- data.frame(label = MBtree$tip.label)
+colorRegions$Region &lt;- ifelse(grepl(&quot;C.MZ&quot;, colorRegions$label), &quot;Mozambique&quot;, 
+                              ifelse(grepl(&quot;TH&quot;, colorRegions$label), &quot;Thailand&quot;, &quot;USA&quot;))
+
+colorRegions$new_label &lt;- ave(colorRegions$Region, colorRegions$Region,
+                              FUN = function(x) paste0(x, &quot;_&quot;, seq_along(x)))
+
+# aesthetics
+
+mbTreePlot &lt;- ggtree(MBtreex) + geom_tiplab()
+mbTreePlot &lt;- ggtree(MBtreex) %&lt;+% colorRegions + 
+  
+  geom_tiplab(aes(label = new_label, color = Region), size = 3) + 
+  
+  geom_text2(aes(label = sprintf(&quot;%.2f&quot;, as.numeric(prob)), subset = !isTip), 
+             size = 2.5, hjust = -2.5) +
+  
+  xlim(0, max(ggtree(MBtreex)$data$x) * 1.3) + 
+  
+  
+  theme_tree2() + 
+  theme(legend.position = &quot;left&quot;, text = element_text(size = 10)) + 
+  guides(color = guide_legend(override.aes = list(label = &quot;•&quot;, size = 10))) 
+
+mbTreePlot
+
+# save image
+ggsave(&quot;figures/mbtree1.png&quot;, plot = mbTreePlot, width = 8, height = 6, dpi = 300)</code></pre>
 </div>
 </div>
 <div id="re-running-mrbayes-on-trimmed-alignment-for-quality-control" class="section level3">
@@ -811,6 +932,11 @@ variable.</li>
 <h3>Result interpretations</h3>
 <div id="plotting-trees-with-ggtree" class="section level4">
 <h4>Plotting trees with ggtree</h4>
+<ul>
+<li>ggtree is an R package for visualizing phylogenetic trees and other
+relevant data in a more aesthetic, clean format than just using
+plot(tree).</li>
+</ul>
 </div>
 </div>
 </div>
