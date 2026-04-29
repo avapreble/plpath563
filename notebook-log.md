@@ -6,11 +6,25 @@ editor_options:
 
 # **Reproducible Notebook Log**
 
+---
+
+#### Software used:
+- RStudio (Version 2025.05.1+513)
+- R (Version 4.5.1)
+- MAFFT (Version 7.526)
+- IQ-TREE (Version 3.0.1)
+- RAxML-NG (Version 1.2.2)
+- MrBayes (Version 3.2.7a)
+- BEAST (Version 2.7.7)
+
+---
+
 ## **Question and Data**
 
-### ***Do prominent regional HIV-1 subtypes exhibit convergent evolution of drug resistance mutations in the pol gene despite variations in first-line antiretrovirals?***
+### ***How do phylogenetic clustering patterns of HIV-1 pol sequences differ across three distinct geographic regions, and what do these patterns suggest about viral evolution in regions with varying treatment contexts?***
 
-#### Regions with different first-line HIV treatments, and variations in the emergence of drug resistance
+#### Looking at phylogenetic clustering of HIV-1 *pol* sequences from three geographic regions.
+
 
 I will use publicly available data of HIV-1 pol sequences from 3
 countries - United States, Mozambique, and Thailand - and compare
@@ -19,7 +33,7 @@ of their variation in use of antiretroviral treatments.
 
 ------------------------------------------------------------------------
 
-## **Downloading Data**
+### **Step 1: Obtaining Data**
 
 The raw data used in this project was obtained from the Los Alamos
 National Laboratory HIV sequence database
@@ -49,9 +63,8 @@ prominent subtype in each region.
 
 ------------------------------------------------------------------------
 
-## **MAFFT - aligning data MSA**
+### **Step 2: MAFFT for Multiple Sequence Alignment**
 
-#### (MAFFT, HW assignment)
 
 *MAFFT is a multiple sequence alignment program that works functions via
 2 main techniques - (1) identification of homologous regions with Fast
@@ -117,7 +130,7 @@ write.dna(trim_alignment, file="data/alignment_results/MAFFT_aligned_trimmed.fas
 
 ------------------------------------------------------------------------
 
-## **Simpler trees**
+### **Step 3: Distance & Parsimony Trees**
 
 [R scripts here](scripts/DistanceAndParsimony.R)
 
@@ -231,9 +244,9 @@ title("Parsimony tree")
 
 ------------------------------------------------------------------------
 
-# **Maximum Likelihood trees and inference**
+### **Step 4: Maximum Likelihood (RAxML, IQ-TREE)**
 
-## **RAxML-NG v1.2.2**
+### **RAxML-NG v1.2.2**
 
 [R scripts here](scripts/raxmlHIV.R)
 
@@ -356,7 +369,7 @@ raxmltreex
 ggsave("figures/raxmltree1.png", plot = raxmltreex, width = 8, height = 6, dpi = 300)
 ```
 
-------------------------------------------------------------------------
+
 
 ## **IQ-TREE v3.0.1**
 
@@ -474,8 +487,9 @@ new_iqtree_ladderize <- ladderize(new_iqtree)
 plot(new_iqtree_ladderize, cex=0.5)
 nodelabels(cex=0.7)
 ```
+### **Step 5: Bayesian Inference (MrBayes, BEAST)**
 
-## MrBayes - Bayesian Inference
+## MrBayes 
 
 [R scripts here](mrbayes.R)
 
@@ -621,9 +635,8 @@ plot(mb_trimmed_ladderized, cex=0.7)
 nodelabels(cex=0.8)
 ```
 
-------------------------------------------------------------------------
 
-### BEAST and MCMC
+## BEAST and MCMC
 
 BEAST is a software package that uses MCMC for Bayesian analysis of
 molecular sequences. It estimates evolutionary parameters. The aligned
@@ -645,7 +658,7 @@ presents visuals of posterior trace, likelihood, ESS, etc.
 
 ------------------------------------------------------------------------
 
-### Distance Matrix
+### **Step 6: Distance Matrix**
 
 #### Pairwise distances
 

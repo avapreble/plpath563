@@ -354,15 +354,30 @@ display: none;
 
 <div id="reproducible-notebook-log" class="section level1">
 <h1><strong>Reproducible Notebook Log</strong></h1>
+<hr />
+<div id="software-used" class="section level4">
+<h4>Software used:</h4>
+<ul>
+<li>RStudio (Version 2025.05.1+513)</li>
+<li>R (Version 4.5.1)</li>
+<li>MAFFT (Version 7.526)</li>
+<li>IQ-TREE (Version 3.0.1)</li>
+<li>RAxML-NG (Version 1.2.2)</li>
+<li>MrBayes (Version 3.2.7a)</li>
+<li>BEAST (Version 2.7.7)</li>
+</ul>
+<hr />
+</div>
 <div id="question-and-data" class="section level2">
 <h2><strong>Question and Data</strong></h2>
-<div id="do-prominent-regional-hiv-1-subtypes-exhibit-convergent-evolution-of-drug-resistance-mutations-in-the-pol-gene-despite-variations-in-first-line-antiretrovirals" class="section level3">
-<h3><strong><em>Do prominent regional HIV-1 subtypes exhibit convergent
-evolution of drug resistance mutations in the pol gene despite
-variations in first-line antiretrovirals?</em></strong></h3>
-<div id="regions-with-different-first-line-hiv-treatments-and-variations-in-the-emergence-of-drug-resistance" class="section level4">
-<h4>Regions with different first-line HIV treatments, and variations in
-the emergence of drug resistance</h4>
+<div id="how-do-phylogenetic-clustering-patterns-of-hiv-1-pol-sequences-differ-across-three-distinct-geographic-regions-and-what-do-these-patterns-suggest-about-viral-evolution-in-regions-with-varying-treatment-contexts" class="section level3">
+<h3><strong><em>How do phylogenetic clustering patterns of HIV-1 pol
+sequences differ across three distinct geographic regions, and what do
+these patterns suggest about viral evolution in regions with varying
+treatment contexts?</em></strong></h3>
+<div id="looking-at-phylogenetic-clustering-of-hiv-1-pol-sequences-from-three-geographic-regions." class="section level4">
+<h4>Looking at phylogenetic clustering of HIV-1 <em>pol</em> sequences
+from three geographic regions.</h4>
 <p>I will use publicly available data of HIV-1 pol sequences from 3
 countries - United States, Mozambique, and Thailand - and compare
 phylogenies. I selected these regions to ensure diverse data and because
@@ -370,9 +385,8 @@ of their variation in use of antiretroviral treatments.</p>
 <hr />
 </div>
 </div>
-</div>
-<div id="downloading-data" class="section level2">
-<h2><strong>Downloading Data</strong></h2>
+<div id="step-1-obtaining-data" class="section level3">
+<h3><strong>Step 1: Obtaining Data</strong></h3>
 <p>The raw data used in this project was obtained from the Los Alamos
 National Laboratory HIV sequence database (<a href="https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html" class="uri">https://www.hiv.lanl.gov/content/sequence/HIV/mainpage.html</a>).</p>
 <p>Sequence Search Interface parameters input:</p>
@@ -397,10 +411,8 @@ ON863057, ON863022, ON863108</p></li>
 </ul>
 <hr />
 </div>
-<div id="mafft---aligning-data-msa" class="section level2">
-<h2><strong>MAFFT - aligning data MSA</strong></h2>
-<div id="mafft-hw-assignment" class="section level4">
-<h4>(MAFFT, HW assignment)</h4>
+<div id="step-2-mafft-for-multiple-sequence-alignment" class="section level3">
+<h3><strong>Step 2: MAFFT for Multiple Sequence Alignment</strong></h3>
 <p><em>MAFFT is a multiple sequence alignment program that works
 functions via 2 main techniques - (1) identification of homologous
 regions with Fast Fourier transform, (2) an efficient, quicker scoring
@@ -453,15 +465,15 @@ write.dna(trim_alignment, file=&quot;data/alignment_results/MAFFT_aligned_trimme
 <hr />
 </div>
 </div>
-</div>
-<div id="simpler-trees" class="section level2">
-<h2><strong>Simpler trees</strong></h2>
+<div id="step-3-distance-parsimony-trees" class="section level3">
+<h3><strong>Step 3: Distance &amp; Parsimony Trees</strong></h3>
 <p><a href="scripts/DistanceAndParsimony.R">R scripts here</a></p>
 <div id="loaded-r-packages" class="section level4">
 <h4>Loaded R packages:</h4>
 <pre class="r"><code>library(ape)
 library(adegenet)
 library(phangorn)</code></pre>
+</div>
 </div>
 <div id="distance-based-tree" class="section level3">
 <h3>Distance-based tree</h3>
@@ -556,12 +568,11 @@ plot(parsimony_tree, cex=0.6)
 title(&quot;Parsimony tree&quot;)</code></pre>
 <hr />
 </div>
+<div id="step-4-maximum-likelihood-raxml-iq-tree" class="section level3">
+<h3><strong>Step 4: Maximum Likelihood (RAxML, IQ-TREE)</strong></h3>
 </div>
-</div>
-<div id="maximum-likelihood-trees-and-inference" class="section level1">
-<h1><strong>Maximum Likelihood trees and inference</strong></h1>
-<div id="raxml-ng-v1.2.2" class="section level2">
-<h2><strong>RAxML-NG v1.2.2</strong></h2>
+<div id="raxml-ng-v1.2.2" class="section level3">
+<h3><strong>RAxML-NG v1.2.2</strong></h3>
 <p><a href="scripts/raxmlHIV.R">R scripts here</a></p>
 <div id="input-alignment" class="section level4">
 <h4>Input alignment:</h4>
@@ -591,6 +602,7 @@ C.MZ.2018.S06.OK649270)</em></p>
 <li><p>logLikelihood: -9274.482730</p></li>
 <li><p>14 taxa due to duplicate removed for computation</p></li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -668,7 +680,6 @@ raxmltreex
 
 # save image
 ggsave(&quot;figures/raxmltree1.png&quot;, plot = raxmltreex, width = 8, height = 6, dpi = 300)</code></pre>
-<hr />
 </div>
 <div id="iq-tree-v3.0.1" class="section level2">
 <h2><strong>IQ-TREE v3.0.1</strong></h2>
@@ -773,9 +784,12 @@ plot(new_iqtree_ladderize, cex=0.5)
 nodelabels(cex=0.7)</code></pre>
 </div>
 </div>
+<div id="step-5-bayesian-inference-mrbayes-beast" class="section level3">
+<h3><strong>Step 5: Bayesian Inference (MrBayes, BEAST)</strong></h3>
 </div>
-<div id="mrbayes---bayesian-inference" class="section level2">
-<h2>MrBayes - Bayesian Inference</h2>
+</div>
+<div id="mrbayes" class="section level2">
+<h2>MrBayes</h2>
 <p><a href="mrbayes.R">R scripts here</a></p>
 <div id="description-1" class="section level3">
 <h3>Description:</h3>
@@ -903,11 +917,11 @@ sumt #summarizes trees</code></pre>
 mb_trimmed_ladderized &lt;- ladderize(mb_trimmed_tree)
 plot(mb_trimmed_ladderized, cex=0.7)
 nodelabels(cex=0.8)</code></pre>
-<hr />
 </div>
 </div>
-<div id="beast-and-mcmc" class="section level3">
-<h3>BEAST and MCMC</h3>
+</div>
+<div id="beast-and-mcmc" class="section level2">
+<h2>BEAST and MCMC</h2>
 <p>BEAST is a software package that uses MCMC for Bayesian analysis of
 molecular sequences. It estimates evolutionary parameters. The aligned
 sequences are put in to BEAUti, which generates the .xml to input in
@@ -925,9 +939,8 @@ really long enough to generate a reliable result.</li>
 <p><a href="figures/posterior_tracer_beast.pdf">posterior plot</a></p>
 <p><a href="figures/likelihood_tracer_beast.pdf">likelihood plot</a></p>
 <hr />
-</div>
-<div id="distance-matrix" class="section level3">
-<h3>Distance Matrix</h3>
+<div id="step-6-distance-matrix" class="section level3">
+<h3><strong>Step 6: Distance Matrix</strong></h3>
 <div id="pairwise-distances" class="section level4">
 <h4>Pairwise distances</h4>
 <pre class="r"><code># Load R package needed:
