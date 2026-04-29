@@ -1,6 +1,6 @@
 # plpath563 - Ava Preble
 
-# Phylogenetic clustering of HIV-1 *pol* sequences from three geographic regions
+# Looking at phylogenetic clustering of HIV-1 *pol* sequences from three geographic regions.
 
 How do phylogenetic clustering patterns of HIV-1 *pol* sequences differ across three distinct geographic regions, and what do these patterns suggest about viral evolution in regions with varying treatment contexts?
 
