@@ -1,7 +1,8 @@
-# plpath563 - Ava Preble
+# Ava Preble - plpath563 Spring 2026
 
-# Looking at phylogenetic clustering of HIV-1 *pol* sequences from three geographic regions.
+# Phylogenetic analysis of HIV-1 *pol* sequences from 3 distinct regions: the United States, Mozambique, and Thailand
 
-How do phylogenetic clustering patterns of HIV-1 *pol* sequences differ across three distinct geographic regions, and what do these patterns suggest about viral evolution in regions with varying treatment contexts?
+#### This project uses phylogenetic methods (including distance and parsimony, maximum likelihood, and Bayesian inference) to analyze HIV-1 *pol* sequences from three regions: the United States, Mozambique, and Thailand. 
 
-I will use publicly available data of HIV-1 pol sequences from 3 regions - North America, Southern Africa, and Asia - and compare phylogenies. I selected these regions to ensure diverse data and because of their variation in use of antiretroviral treatments.
+
+

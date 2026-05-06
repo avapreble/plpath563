@@ -86,8 +86,8 @@ rearrangement
 
 - Fast Fourier Transform algorithm not efficient for more distantly related sequences
 
-3 .fasta files with each country's 5 pol sequences were combined in to a
-collective .fasta before MAFFT alignment (*combined_HIV2018.fasta*).
+3 FASTA files with each country's 5 pol sequences were combined in to a
+collective FASTA file before MAFFT alignment (*combined_HIV2018.fasta*).
 
 Running MAFFT in terminal to create alignment file:
 
@@ -115,7 +115,9 @@ was minuscule. See the creation of the trimmed alignment to follow:*
 
 ##### Making trimmed alignment (quality control)
 
-[R scripts here](script/alignmentQC.R) I created my original alignment
+[R scripts here](script/alignmentQC.R)
+
+I created my original alignment
 and analyzed without trimming, but then I made a second alignment of the
 same data that was trimmed, removing columns that only consisted of gaps
 (see below). This did not change overall topology or support values in a
@@ -538,7 +540,7 @@ MrBayes > execute data/alignment_results/MAFFT_aligned.nex
 
 MrBayes > lset nst=6 rates=propinv
 
-mcmc ngen=10000
+mcmc ngen=500000
 
 sump 
 
@@ -652,11 +654,10 @@ BEAST. BEAST outputs .log and .trees files. Then, the .log file
 presents visuals of posterior trace, likelihood, ESS, etc.
 
 -   The figures created in Tracer (posterior and likelihood plots) after
-    uploading the BEAUti2 output show MCMC convergence after the initial
+    uploading the BEAUti2 output show MCMC partly stabilizing after the initial
     calibration period. The effective sample size (ESS) values, however,
-    were low (posterior = 58, likelihood = 53), indicating that the
-    various pol sequences were very similar to one another and the
-    sequences weren't really long enough to generate a reliable result.
+    were low (posterior = 58, likelihood = 53), indicating insufficient sampling and unreliable parameter estimates
+    
 
 [posterior plot](figures/posterior_tracer_beast.pdf)
 
