@@ -8,7 +8,7 @@
 
 ***QUICK LINKS TO FINAL PROJECT:***
 
-- [FINAL RESEARCH PAPER](FinalResearchPaper_plpath563)
+- [FINAL RESEARCH PAPER](FinalResearchPaper_plpath563.pdf)
 - [REPRODUCIBILITY SCRIPT](notebook-log.md)
 
 
