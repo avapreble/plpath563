@@ -15,7 +15,7 @@ Required software: *R, RStudio, MAFFT, IQ-TREE, RAxML-NG, MrBayes, BEAST*
 #### **REPOSITORY NAVIGATION**
 
 ##### **MAIN DIRECTORY: PLPATH563** 
-***plpath563/***  --> *README and reproducibility notebook files, R project, project folders (SEE BELOW)*
+***plpath563/***  --> *README and reproducibility notebook files, final research paper, R project, project folders (SEE BELOW)*
 
 - **data/** 
 individual FASTA files by country, combined FASTA file, folder with MAFFT outputs
