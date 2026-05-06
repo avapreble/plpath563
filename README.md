@@ -2,7 +2,7 @@
 
 #### Ava Preble | PLPATH563: Phylogenetic Analysis of Molecular Data 
 
-##### This project uses phylogenetic methods (including distance and parsimony, maximum likelihood, and Bayesian inference) to analyze HIV-1 *pol* sequences from three regions: the United States, Mozambique, and Thailand. 
+#### This project uses phylogenetic methods (including distance and parsimony, maximum likelihood, and Bayesian inference) to analyze HIV-1 *pol* sequences from three regions: the United States, Mozambique, and Thailand. 
 
 
 Data was gathered from Los Alamos National Laboratory HIV sequence database. 
