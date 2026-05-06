@@ -14,7 +14,7 @@ Required software: *R, RStudio, MAFFT, IQ-TREE, RAxML-NG, MrBayes, BEAST*
 
 #### **REPOSITORY NAVIGATION**
 
-##### **MAIN DIRECTORY:** 
+##### **MAIN DIRECTORY: PLPATH563** 
 ***plpath563/***  --> *README and reproducibility notebook files, R project, project folders (SEE BELOW)*
 
 - **data/** 
