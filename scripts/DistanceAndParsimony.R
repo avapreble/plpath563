@@ -1,4 +1,4 @@
-### Distance and parsimony methods on data (HW)
+### Distance and parsimony methods on data
 
 # loading R packages
 library(ape)
@@ -28,16 +28,16 @@ tre <- ladderize(tre)
 
 #plot tree
 plot(tre, cex=.6)
-title("Simple NJ tree")
+title("Simple NJ Distance tree")
 
 
 
 ## Parsimony-based tree
 
-# Parsinomy-based trees are built upon the basis of using the smallest number of genetic sequence changes between each taxa.
+# Parsimony-based trees are built upon the basis of using the smallest number of genetic sequence changes between each taxa.
 
 # Assumptions: the simplest scenario, with the least amount of genetic changes, is the most likely. This is more accurate when the genetic changes are less compared to something rapidly evolving and mutating
-# Limitations: assumes the simplest scenario, which doesn't account for large eveolutionary events well. This model is also more simple and computer intensive than some of it's counterparts.   
+# Limitations: assumes the simplest scenario, which doesn't account for large evolutionary events well. This model is also more simple and computer intensive than some of it's counterparts.   
 
 
 # R packages loaded above

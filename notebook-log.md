@@ -66,19 +66,25 @@ prominent subtype in each region.
 ### **Step 2: MAFFT for Multiple Sequence Alignment**
 
 
-*MAFFT is a multiple sequence alignment program that works functions via
+*MAFFT is a multiple sequence alignment program that functions via
 2 main techniques - (1) identification of homologous regions with Fast
 Fourier transform, (2) an efficient, quicker scoring system.*
 
-**Assumptions** - The chosen sequence regions are homologous and closely
-related - Needleman-Wunsch algorithm for computing alignment without
+**Assumptions**
+
+- The chosen sequence regions are homologous and closely
+related 
+
+- Needleman-Wunsch algorithm for computing alignment without
 rearrangement
 
-**Limitations** - CPU times proportional to sequence length for more
-conserved regions, but closer to Needleman-Wunsch for more distantly
-related sequences - More reliable guide trees produce more reliable
-results, an inaccurate guide tree can mess with alignment - Fast Fourier
-Transform algorithm not efficient for more distantly related sequences
+**Limitations** 
+
+- CPU times proportional to sequence length for more conserved regions, but closer to Needleman-Wunsch for more distantly related sequences 
+
+- More reliable guide trees produce more reliable results, an inaccurate guide tree can mess with alignment 
+
+- Fast Fourier Transform algorithm not efficient for more distantly related sequences
 
 3 .fasta files with each country's 5 pol sequences were combined in to a
 collective .fasta before MAFFT alignment (*combined_HIV2018.fasta*).
@@ -190,7 +196,7 @@ tre <- ladderize(tre)
 
 
 plot(tre, cex=.6)
-title("Simple NJ tree")
+title("Simple NJ Distance tree")
 ```
 
 ### Parsimony-based tree
@@ -203,7 +209,7 @@ changes, is the most likely. This is more accurate when the genetic
 changes are less compared to something rapidly evolving and mutating
 
 **Limitations:** assumes the simplest scenario, which doesn't account
-for large eveolutionary events well. This model is also more simple and
+for large evolutionary events well. This model is also more simple and
 computer intensive than some of it's counterparts.
 
 ```r
