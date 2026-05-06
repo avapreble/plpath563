@@ -1,6 +1,13 @@
 # **Phylogenetic Analysis of HIV-1** ***pol*** **Sequences From 3 Geographical Regions**
 
+
 #### Ava Preble | PLPATH563: Phylogenetic Analysis of Molecular Data 
+
+***QUICK LINKS:***
+
+- [FINAL RESEARCH PAPER](FinalResearchPaper_plpath563)
+- [REPRODUCIBILITY SCRIPT](notebook-log.md)
+
 
 #### This project uses phylogenetic methods (including distance and parsimony, maximum likelihood, and Bayesian inference) to analyze HIV-1 *pol* sequences from three regions: the United States, Mozambique, and Thailand. 
 
